@@ -14,13 +14,39 @@ import cookieSession from "cookie-session";
 import passport from "./middleware/passport";
 import twitterPassport from "./middleware/twitterPassport";
 
-const init_server = async () => {
+const requiredConfig = [
+  "ACCOUNTS_EMAIL",
+  "ACCOUNTS_MONGODB_URI",
+  "APIHUB_MONGODB_URI",
+  "CONTACT_US_EMAIL",
+  "DATA_DELETION_PERIOD",
+  "EMAIL_PASSWORD",
+  "FACEBOOK_CLIENT_ID",
+  "FACEBOOK_CLIENT_SECRET",
+  "GAMES_MONGODB_URI",
+  "GOOGLE_CLIENT_ID",
+  "GOOGLE_CLIENT_SECRET",
+  "INACTIVITY_PERIOD",
+  "INFO_MONGODB_URI",
+  "JWT_SECRET",
+  "NO_REPLY_EMAIL",
+  "NODE_VERSION",
+  "NOTICE_PERIOD",
+  "SECRET",
+  "STABLE_VERSION",
+  "TWITTER_CONSUMER_KEY",
+  "TWITTER_CONSUMER_SECRET",
+];
+
+const initServer = async () => {
   try {
     const APP_ENV = process.env.NODE_ENV ? capitalize(process.env.NODE_ENV) : "",
       [BASE_URL, CLIENT_URL, STABLE_VERSION] = [process.env.BASE_URL, process.env.CLIENT_URL, process.env.STABLE_VERSION],
       [NODE_ENV, SECRET_KEY, PORT] = [APP_ENV === "Test" ? "Preview" : APP_ENV, process.env.SECRET, process.env.PORT || 5000];
 
-    if (!APP_ENV) throw { message: "Invalid Node Enviroment" };
+    console.log("fff344");
+
+    if (!APP_ENV) throw { message: "Invalid Node Environment" };
     if (!BASE_URL) throw { message: "Server URL is not specified" };
     if (!CLIENT_URL) throw { message: "Client URL is not specified" };
     if (!STABLE_VERSION) throw { message: "Application Version is undefined" };
@@ -60,4 +86,4 @@ const init_server = async () => {
   }
 };
 
-init_server();
+initServer();
