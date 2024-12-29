@@ -44,19 +44,22 @@ All packages installed are key to this app running smoothly and we graciously th
 ## Getting Started
 
 1. _Fork_ **Wave Research Server** [here](https://github.com/Chukwu3meka/Wave Research-Server.git)
-2. Now clone your remote branch, and run `npm install` or `npm i` for short; to install all packages
+2. Now clone your remote branch, and run `pnpm install` or `pnpm i` for short; to install all packages
 3. If you don't have a gitignore file, create one and [run](https://sigalambigha.home.blog/2020/03/11/how-to-refresh-gitignore/) `git rm -r --cached .` to ensure git is tracking the right file, i.e files not listed in the new _.gitignore_
-4. In development we run a few command to reflect changes on file change, and to keep our app running all the time
-   > `npm run tsc`: to compile our typescript files in the source folder
-   > `npm run dev`: to start our development server in the dist folder
-5. You don't need to install any project management such as nodemnon or pm2 as Node.js 18 now comes witth and inbuilt watch mode
-6. Make sure to use `node` as enviroment, `yarn` as build command and `npm start` to start app in render
-7. ...
+4. You need to clone the waverd-gateway repo to proceed, gateway allows client and server to run on the same port during development.
+5. Ensure to update the gateway path in `ecosystem.config.js` to match cloned path of waverd-gateway.
+6. In development we run a few command to reflect changes on file change, and to keep our app running all the time
+   > `npm run tsc`: to compile our typescript files in the source folder for the first time by creating a dist folder
+   > `bash dev.sh`
+   > ---`npm run dev`: to start our development server in the dist folder---
+7. You don't need to install any project management such as nodemnon or pm2 as Node.js 18 now comes with and inbuilt watch mode
+8. Make sure to use `node` as environment, `yarn` as build command and `npm start` to start app in render
+9. ...
 
 ## Issues
 
 1. Stick to Passport 0.5 to avoid issues with oauth for now. [stackoverflow](https://stackoverflow.com/questions/72375564/typeerror-req-session-regenerate-is-not-a-function-using-passport)
 2. Ensure not to add NODE_ENV = "development" to server env, to allow installation of dev dependencies
-3. before email update, send notification consistently for 7 days beforeemail change can take effect, also display it in app/user profile pae that email has been updated and will take effect in 7 days time
+3. before email update, send notification consistently for 7 days before email change can take effect, also display it in app/user profile pae that email has been updated and will take effect in 7 days time
 4. Make sure to set case sensitivity in folder/file rename on git/windows
 5. most website sanitize empty space in password
