@@ -3,14 +3,14 @@
 **Wave Research**: No. 1 free online football manager for advanced soccer management. The title of manager is almost exclusively used in British football. In most other European countries in which professional football is played, the person responsible for the direction of a team is awarded the position of coach or "trainer"<br/>
 This app was built to meet a true soccer management system where the developers and contributors also play the game.<br/>
 I've always had the goal to build a free online soccer app that can compete with **PES** and **eFootball**, but then what really pushed/motivated me to start the development of Wave Research, was a question asked on another football manager platform, and the user goes like this '**Does the developers of this game even play it or knows what it looks like?**'<br/>
-Initially, **Wave Research** was a closed source app, but my mentor who's a lover of Open Source Community influnced my decision to make it public; such that it will really benefit the software developers community, in a way that new developers and experienced developers can fork the project, tweak it and experiment new features with it.<br/>
-That being said **PERMISSION IN NOT GRANTED TO CLONE THIS APP FOR ANY COMMERCIAL GAIN IN ANY FORM NOR DEVATE FROM IT'S ORIGINAL PURPOSE, NEITHER IS ANYONE ALLOWED TO USE PART/FULL CODEBASE ON ANOTHER PLATFORM WITHOUT EXPLICIT AUTHORISATION FROM ME**
+Initially, **Wave Research** was a closed source app, but my mentor who's a lover of Open Source Community influenced my decision to make it public; such that it will really benefit the software developers community, in a way that new developers and experienced developers can fork the project, tweak it and experiment new features with it.<br/>
+That being said **PERMISSION IN NOT GRANTED TO CLONE THIS APP FOR ANY COMMERCIAL GAIN IN ANY FORM NOR DEVIATE FROM IT'S ORIGINAL PURPOSE, NEITHER IS ANYONE ALLOWED TO USE PART/FULL CODEBASE ON ANOTHER PLATFORM WITHOUT EXPLICIT AUTHORIZATION FROM ME**
 
 ## About Wave Research Server
 
-Wave Research Server holds the code neccessary for the backend of [Wave Research](https://www.waverd.com), which is an online Soccer Manager App with the main of building an engaging online soccer game with peoples satisfaction as our goal. What motivated me to build Wave Research was the inability for existing Online Manger games to give what we really want in a soccer manager app, after sending mails most platform on how to improve the game, without response, i can accross one post where a user asked 'Do the developers of this game even play it, or are they just there for money'.
+Wave Research Server holds the code necessary for the backend of [Wave Research](https://www.waverd.com), which is an online Soccer Manager App with the main of building an engaging online soccer game with peoples satisfaction as our goal. What motivated me to build Wave Research was the inability for existing Online Manger games to give what we really want in a soccer manager app, after sending mails most platform on how to improve the game, without response, i can across one post where a user asked 'Do the developers of this game even play it, or are they just there for money'.
 
-Wave Research APIs are hosted on **[Render](https://render.com/)**. Though similar in nature, they handlle different api request: console | accounts | manager | apihub
+Wave Research APIs are hosted on **[Render](https://render.com/)**. Though similar in nature, they handle different api request: console | accounts | manager | apihub
 
 | API      | Action                                                                      |
 | -------- | --------------------------------------------------------------------------- |
@@ -21,25 +21,21 @@ Wave Research APIs are hosted on **[Render](https://render.com/)**. Though simil
 
 ## NPM Packages && Services
 
-All packages installed are key to this app running smoothly and we graciously thank the group of developers maintaining those packages. Currently our server is running on a free tier hosted on **RENDER** formerly on _Heroku_ before it's free plan was cancelled and we are working on raisng funds to upgrade our server. The following in no particular order executes a very important task on our server.
+All packages installed are key to this app running smoothly and we graciously thank the group of developers maintaining those packages. Currently our server is running on a free tier hosted on **RENDER** formerly on _Heroku_ before it's free plan was cancelled and we are working on raising funds to upgrade our server. The following in no particular order executes a very important task on our server.
 
-1. https://kaffeine.herokuapp.com: Since we run our app on a free tier, Kaffeine helps to keep our app awake 24hrs.
+1. https://console.cron-job.org: Since we run our app on a free tier, cron-job helps to keep our app awake 24hrs.
 
-2. Having our app awake 24hrs, we use node-cron to keep our Tasks up and running which is crucial to the game. such as generating match scores, automatically accepting and sending bids from unmanaged clubs, injuries and fitness, etc.
+2. Having our app awake 24hrs, we use cron-job to keep our Tasks up and running which is crucial to the game. such as generating match scores, automatically accepting and sending bids from unmanaged clubs, injuries and fitness, etc.
 
-3. We would be considered greedy and selfish if we fail to mention MongoDB, what is game without a database, and not just a database, a powerful NoSQL Database.
+3. We would be considered greedy and selfish if we fail to mention MongoDB, what is a game without a database, and not just a database, a powerful NoSQL Database.
+
+4. A very important platform worth mentioning and a try for every developer would be be Vercel, that currently maintains next.js, offers a way for us to manage our domain across services, provides free hosting and an excellent support.
 
 ## Authors
 
-- Chukwuemeka Maduekwe [@Twitter](https://www.twitter.com/Chukwu3meka) [@GitHub](https://github.com/Chukwu3meka)
+- Chukwuemeka Maduekwe [@LinkedIn](https://www.linkedin.com/in/chukwu3meka/) or [@GitHub](https://github.com/Chukwu3meka)
 
 > To learn more about this project, kindly contact the developer [😎 ChukwuEmeka Maduekwe](https://www.linkedin.com/in/chukwu3meka/):
-
-## 💰 Support Me 👋
-
-<p align="center">
-<a href="https://www.buymeacoffee.com/chukwu3meka" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" height="70" ></a>
-</p>
 
 ## Getting Started
 
