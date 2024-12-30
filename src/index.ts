@@ -49,7 +49,7 @@ const initServer = async () => {
     });
   } catch (error: any) {
     if (process.env.NODE_ENV === "Development") {
-      console.log(`Wave Research`, (error.message as string) || error);
+      console.error(`Wave Research:`, (error.message as string) || error);
     } else {
       await INFO_ALL_FAILED_REQUESTS.create({
         error: error || null,

@@ -12,12 +12,12 @@ Wave Research Server holds the code neccessary for the backend of [Wave Research
 
 Wave Research APIs are hosted on **[Render](https://render.com/)**. Though similar in nature, they handlle different api request: console | accounts | manager | apihub
 
-| API      | Action                                                                     |
-| -------- | -------------------------------------------------------------------------- |
-| console  | Handles admin/moderators actions such as logs, contact us, etc.            |
-| accounts | Handles actions such as signin, signup, password reset, data eletion, etc. |
-| manager  | handles all soccer manager related endpoints                               |
-| apihub   | handles all public apihub related endpoints                                |
+| API      | Action                                                                      |
+| -------- | --------------------------------------------------------------------------- |
+| console  | Handles admin/moderators actions such as logs, contact us, etc.             |
+| accounts | Handles actions such as signin, signup, password reset, data deletion, etc. |
+| manager  | handles all soccer manager related endpoints                                |
+| apihub   | handles all public apihub related endpoints                                 |
 
 ## NPM Packages && Services
 
@@ -45,21 +45,50 @@ All packages installed are key to this app running smoothly and we graciously th
 
 1. _Fork_ **Wave Research Server** [here](https://github.com/Chukwu3meka/Wave Research-Server.git)
 2. Now clone your remote branch, and run `pnpm install` or `pnpm i` for short; to install all packages
-3. If you don't have a gitignore file, create one and [run](https://sigalambigha.home.blog/2020/03/11/how-to-refresh-gitignore/) `git rm -r --cached .` to ensure git is tracking the right file, i.e files not listed in the new _.gitignore_
+3. If you don't have a gitignore file, you can create one and [run](https://sigalambigha.home.blog/2020/03/11/how-to-refresh-gitignore/) `git rm -r --cached .` to ensure git is tracking the right file, i.e files not listed in the new _.gitignore_
 4. You need to clone the waverd-gateway repo to proceed, gateway allows client and server to run on the same port during development.
-5. Ensure to update the gateway path in `ecosystem.config.js` to match cloned path of waverd-gateway.
-6. In development we run a few command to reflect changes on file change, and to keep our app running all the time
-   > `npm run tsc`: to compile our typescript files in the source folder for the first time by creating a dist folder
-   > `bash dev.sh`
-   > ---`npm run dev`: to start our development server in the dist folder---
-7. You don't need to install any project management such as nodemnon or pm2 as Node.js 18 now comes with and inbuilt watch mode
-8. Make sure to use `node` as environment, `yarn` as build command and `npm start` to start app in render
-9. ...
+5. If you maintain the same folder name after cloning waverd-gateway, no extra step is required.
+   > else; Ensure to update the gateway path in `ecosystem.config.js` to match cloned path of waverd-gateway.
+6. Make sure to have pm2 installed globally. `pnpm install pm2 -g`.
+7. .env file is required to proceed, a list of required variables can be found in the ENV_VARIABLES constant located here `./waverd-server/src/utils/constants.ts`
+8. In development we run a few command to reflect changes on file change, and to keep our app running all the time. To simplify the process we created a bash file to handle this
+   > Run `bash dev.sh` to start our development server and compile TS to JS in the dist folder in realtime.
+9. Make sure to use `node` as environment, `yarn` as build command and `npm start` to start app in render
+10. ...
+
+## Commit Convention
+
+Before you create a Pull Request, please check whether your commits comply with
+the commit conventions used in this repository.
+
+When you create a commit we kindly ask you to follow the convention
+`category(scope or module): message` in your commit message while using one of
+the following categories:
+
+- `feat / feature`: all changes that introduce completely new code or new
+  features
+- `fix`: changes that fix a bug (ideally you will additionally reference an
+  issue if present)
+- `refactor`: any code related change that is not a fix nor a feature
+- `docs`: changing existing or creating new documentation (i.e. README, docs for
+  usage of a lib or cli usage)
+- `build`: all changes regarding the build of the software, changes to
+  dependencies or the addition of new dependencies
+- `test`: all changes regarding tests (adding new tests or changing existing
+  ones)
+- `chore`: all changes to the repository that do not fit into any of the above
+  categories
+
+  e.g. `feat(components): add new prop to the avatar component`
+
+If you are interested in the detailed specification you can visit
+https://www.conventionalcommits.org/ or check out the
+[Angular Commit Message Guidelines](https://github.com/angular/angular/blob/22b96b9/CONTRIBUTING.md#-commit-message-guidelines).
 
 ## Issues
 
 1. Stick to Passport 0.5 to avoid issues with oauth for now. [stackoverflow](https://stackoverflow.com/questions/72375564/typeerror-req-session-regenerate-is-not-a-function-using-passport)
-2. Ensure not to add NODE_ENV = "development" to server env, to allow installation of dev dependencies
+2. --- Ensure not to add NODE_ENV = "development" to server env, to allow installation of dev dependencies ---
 3. before email update, send notification consistently for 7 days before email change can take effect, also display it in app/user profile pae that email has been updated and will take effect in 7 days time
 4. Make sure to set case sensitivity in folder/file rename on git/windows
 5. most website sanitize empty space in password
