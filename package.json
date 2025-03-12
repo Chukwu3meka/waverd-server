@@ -1,7 +1,7 @@
 {
   "name": "waverd-server",
   "version": "1.0.0",
-  "description": "Wave Research server",
+  "description": "WaveRD server",
   "main": "index.js",
   "scripts": {
     "build": "tsc",
@@ -17,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Chukwu3meka/Wave Research-Server.git"
+    "url": "git+https://github.com/Chukwu3meka/WaveRD-Server.git"
   },
   "keywords": [
     "soccer",
@@ -25,12 +25,12 @@
     "manager",
     "api"
   ],
-  "author": "Wave Research",
+  "author": "WaveRD",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Chukwu3meka/Wave Research-Server/issues"
+    "url": "https://github.com/Chukwu3meka/WaveRD-Server/issues"
   },
-  "homepage": "https://github.com/Chukwu3meka/Wave Research-Server#readme",
+  "homepage": "https://github.com/Chukwu3meka/WaveRD-Server#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.2",

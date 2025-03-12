@@ -29,13 +29,11 @@ const ProfileSchema = new Schema(
         counter: { type: Number, default: 0 },
         lastAttempt: { type: Date, default: Date.now() },
       },
-
       otp: {
         code: { type: String, default: null },
         purpose: { type: String, default: "" },
         time: { type: Date, default: "" },
       },
-
       verification: {
         email: { type: Date, default: null },
       },

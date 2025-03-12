@@ -34,7 +34,7 @@ export default async (req: Request, res: Response) => {
       account: "accounts",
       template: "dataDeletion",
       data: { name: profile.name },
-      subject: "Wave Research - Data Deletion",
+      subject: "WaveRD - Data Deletion",
     });
 
     const data = { success: true, message: `Data deletion initiated`, data: null };

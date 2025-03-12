@@ -17,8 +17,7 @@ const oAuthFunc = async (req: Request, res: Response) => {
     validator({ type: "email", value: email, label: "Email" });
 
     const profile = await ACCOUNTS_PROFILE.findOne({ email });
-    if (!profile || !profile.auth || !profile.auth.verification || !profile.auth.failedAttempts || !profile.auth.otp)
-      throw { message: "Email not associated with any account", sendError: true }; // <= verify that account exist, else throw an error
+    if (!profile || !profile.auth || !profile.auth.verification || !profile.auth.failedAttempts || !profile.auth.otp) throw { message: "Email not associated with any account", sendError: true }; // <= verify that account exist, else throw an error
 
     const {
       id,
@@ -52,7 +51,7 @@ const oAuthFunc = async (req: Request, res: Response) => {
           account: "accounts",
           template: "reVerifyEmail",
           address: email,
-          subject: "Verify your email to activate Your Wave Research account",
+          subject: "Verify your email to activate Your WaveRD account",
           data: {
             activationLink: `${process.env.BASE_URL}${process.env.STABLE_VERSION}/accounts/verify-email?gear=${newOTP.code}`,
             name,
@@ -60,16 +59,13 @@ const oAuthFunc = async (req: Request, res: Response) => {
         });
 
         throw {
-          message:
-            "Verify your email to activate Your Wave Research account, kindly check your email inbox/spam for the most recent verification email from us",
+          message: "Verify your email to activate Your WaveRD account, kindly check your email inbox/spam for the most recent verification email from us",
           sendError: true,
         };
       }
 
       throw {
-        message: `Kindly check your inbox/spam for our latest verification email that was sent ${
-          hoursElapsed + 3 ? "few hours" : "less than an hour"
-        } ago`,
+        message: `Kindly check your inbox/spam for our latest verification email that was sent ${hoursElapsed + 3 ? "few hours" : "less than an hour"} ago`,
         sendError: true,
       };
     }
@@ -81,7 +77,7 @@ const oAuthFunc = async (req: Request, res: Response) => {
       address: email,
       account: "accounts",
       template: "successfulLogin",
-      subject: `Successful Login to Wave Research via ${capitalize(auth)}`,
+      subject: `Successful Login to WaveRD via ${capitalize(auth)}`,
     });
 
     return res.status(200).cookie("SSID", SSIDJwtToken, CLIENT_COOKIES_OPTION).redirect(302, `${process.env.CLIENT_URL}?auth=${auth}`);

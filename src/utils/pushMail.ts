@@ -180,7 +180,7 @@ export default async ({ account, template, address, subject, data = {} }: PushMa
                                   <tr>
                                     <td align="center" style="font-size: 0px; padding: 10px 25px; word-break: break-word">
                                       <div style="font-family: helvetica; font-size: 24px; font-weight: 700; line-height: 1; text-align: center; color: #448b44">
-                                        Wave Research
+                                        WaveRD
                                       </div>
                                     </td>
                                   </tr>

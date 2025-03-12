@@ -1,16 +1,16 @@
-# Wave Research Server ✨
+# WaveRD ✨
 
-**Wave Research**: No. 1 free online football manager for advanced soccer management. The title of manager is almost exclusively used in British football. In most other European countries in which professional football is played, the person responsible for the direction of a team is awarded the position of coach or "trainer"<br/>
+**WaveRD**: is a free online football manager for advanced soccer management. The title of manager is almost exclusively used in British football. In most other European countries in which professional football is played, the person responsible for the direction of a team is awarded the position of coach or "trainer"<br/>
 This app was built to meet a true soccer management system where the developers and contributors also play the game.<br/>
-I've always had the goal to build a free online soccer app that can compete with **PES** and **eFootball**, but then what really pushed/motivated me to start the development of Wave Research, was a question asked on another football manager platform, and the user goes like this '**Does the developers of this game even play it or knows what it looks like?**'<br/>
-Initially, **Wave Research** was a closed source app, but my mentor who's a lover of Open Source Community influenced my decision to make it public; such that it will really benefit the software developers community, in a way that new developers and experienced developers can fork the project, tweak it and experiment new features with it.<br/>
+I've always had the goal to build a free online soccer app that can compete with **FIFA** and **eFootball**, but then what really pushed/motivated me to start the development of WaveRD, was a question asked on another football manager platform, and the user goes like this '**Does the developers of this game even play it or knows what it looks like?**'<br/>
+Initially, **WaveRD** was a closed source app, but my mentor who's a lover of Open Source Community influenced my decision to make it public; such that it will really benefit the software developers community, in a way that new developers and experienced developers can fork the project, tweak it and experiment new features with it.<br/>
 That being said **PERMISSION IN NOT GRANTED TO CLONE THIS APP FOR ANY COMMERCIAL GAIN IN ANY FORM NOR DEVIATE FROM IT'S ORIGINAL PURPOSE, NEITHER IS ANYONE ALLOWED TO USE PART/FULL CODEBASE ON ANOTHER PLATFORM WITHOUT EXPLICIT AUTHORIZATION FROM ME**
 
-## About Wave Research Server
+## About WaveRD Server⚡
 
-Wave Research Server holds the code necessary for the backend of [Wave Research](https://www.waverd.com), which is an online Soccer Manager App with the main of building an engaging online soccer game with peoples satisfaction as our goal. What motivated me to build Wave Research was the inability for existing Online Manger games to give what we really want in a soccer manager app, after sending mails most platform on how to improve the game, without response, i can across one post where a user asked 'Do the developers of this game even play it, or are they just there for money'.
+WaveRD Server holds the code necessary for the backend of [WaveRD](https://www.waverd.com), which is an online Soccer Manager App with the main of building an engaging online soccer game with peoples satisfaction as our goal. What motivated me to build WaveRD was the inability for existing Online Manger games to give what we really want in a soccer manager app, after sending mails most platform on how to improve the game, without response, i can across one post where a user asked 'Do the developers of this game even play it, or are they just there for money'.
 
-Wave Research APIs are hosted on **[Render](https://render.com/)**. Though similar in nature, they handle different api request: console | accounts | manager | apihub
+WaveRD APIs are hosted on **[Render](https://render.com/)**. Though similar in nature, they handle different api request: console | accounts | manager | apihub
 
 | API      | Action                                                                      |
 | -------- | --------------------------------------------------------------------------- |
@@ -33,13 +33,13 @@ All packages installed are key to this app running smoothly and we graciously th
 
 ## Authors
 
-- Chukwuemeka Maduekwe [@LinkedIn](https://www.linkedin.com/in/chukwu3meka/) or [@GitHub](https://github.com/Chukwu3meka)
+- 😎 Chukwuemeka Maduekwe [@X](https://x.com/Chukwu3meka/) or [@GitHub](https://github.com/Chukwu3meka)
 
-> To learn more about this project, kindly contact the developer [😎 ChukwuEmeka Maduekwe](https://www.linkedin.com/in/chukwu3meka/):
+> To learn more about this project, kindly contact the developer on [LinkedIn](https://www.linkedin.com/in/chukwu3meka/):
 
 ## Getting Started
 
-1. _Fork_ **Wave Research Server** [here](https://github.com/Chukwu3meka/Wave Research-Server.git)
+1. _Fork_ **WaveRD Server** [here](https://github.com/Chukwu3meka/waverd-server)
 2. Now clone your remote branch, and run `pnpm install` or `pnpm i` for short; to install all packages
 3. If you don't have a gitignore file, you can create one and [run](https://sigalambigha.home.blog/2020/03/11/how-to-refresh-gitignore/) `git rm -r --cached .` to ensure git is tracking the right file, i.e files not listed in the new _.gitignore_
 4. You need to clone the waverd-gateway repo to proceed, gateway allows client and server to run on the same port during development.
@@ -50,7 +50,7 @@ All packages installed are key to this app running smoothly and we graciously th
 8. In development we run a few command to reflect changes on file change, and to keep our app running all the time. To simplify the process we created a bash file to handle this
    > Run `bash dev.sh` to start our development server and compile TS to JS in the dist folder in realtime.
 9. Make sure to use `node` as environment, `yarn` as build command and `npm start` to start app in render
-10. ...
+10. Happy hacking...😉
 
 ## Commit Convention
 
@@ -72,6 +72,8 @@ the following categories:
   dependencies or the addition of new dependencies
 - `test`: all changes regarding tests (adding new tests or changing existing
   ones)
+- `ci`: all changes regarding the configuration of continuous integration (i.e.
+  github actions, ci system)
 - `chore`: all changes to the repository that do not fit into any of the above
   categories
 

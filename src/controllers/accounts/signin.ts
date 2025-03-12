@@ -18,8 +18,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
     validate({ type: "password", value: authPassword });
 
     const profile = await ACCOUNTS_PROFILE.findOne({ email });
-    if (!profile || !profile.auth || !profile.auth.verification || !profile.auth.failedAttempts || !profile.auth.otp)
-      throw { message: "Invalid Email/Password", sendError: true }; // <= verify that account exist, else throw an error
+    if (!profile || !profile.auth || !profile.auth.verification || !profile.auth.failedAttempts || !profile.auth.otp) throw { message: "Invalid Email/Password", sendError: true }; // <= verify that account exist, else throw an error
 
     const {
       id,
@@ -55,7 +54,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
           account: "accounts",
           template: "reVerifyEmail",
           address: email,
-          subject: "Verify your email to activate Your Wave Research account",
+          subject: "Verify your email to activate Your WaveRD account",
           data: {
             activationLink: `${process.env.BASE_URL}${process.env.STABLE_VERSION}/accounts/verify-email?gear=${newOTP.code}`,
             name,
@@ -69,7 +68,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
       }
 
       throw {
-        message: `Kindly check your inbox/spam for our latest verification email from Wave Research`,
+        message: `Kindly check your inbox/spam for our latest verification email from WaveRD`,
         sendError: true,
       };
     }
@@ -81,7 +80,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
       account: "accounts",
       template: "successfulLogin",
       address: email,
-      subject: "Successful Login to Wave Research",
+      subject: "Successful Login to WaveRD",
       data: { name },
     });
 

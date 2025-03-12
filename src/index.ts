@@ -8,12 +8,13 @@ import { INFO_ALL_FAILED_REQUESTS } from "./models/info.model";
 import express from "express";
 import bodyParser from "body-parser";
 import routeHandlers from "./routes";
-import logger from "./middleware/logger";
-import header from "./middleware/header";
+import logger from "./middleware/logger"; // <= Application logger
+import header from "./middleware/header"; // <= Add no index for search engines
 import cookieParser from "cookie-parser";
 import cookieSession from "cookie-session";
 import passport from "./middleware/passport";
 import twitterPassport from "./middleware/twitterPassport";
+import performanceMonitor from "./middleware/performance";
 
 const initServer = async () => {
   try {
@@ -34,8 +35,8 @@ const initServer = async () => {
     APP.use(twitterPassport); // <= fix error with twitter passport
     APP.use(passport.initialize()); // <=
     APP.use(passport.session()); // <=
-    APP.use(header); // <= Add no index for search engines
-    APP.use(logger); // <= Application logger
+    // <= Add no index for search engines
+    APP.use([header, logger, performanceMonitor]);
 
     routeHandlers(APP);
 
@@ -49,7 +50,7 @@ const initServer = async () => {
     });
   } catch (error: any) {
     if (process.env.NODE_ENV === "Development") {
-      console.error(`Wave Research:`, (error.message as string) || error);
+      console.error(`WaveRD:`, (error.message as string) || error);
     } else {
       await INFO_ALL_FAILED_REQUESTS.create({
         error: error || null,
