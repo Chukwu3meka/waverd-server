@@ -48,6 +48,7 @@ All packages installed are key to this app running smoothly and we graciously th
 6. Make sure to have pm2 installed globally. `pnpm install pm2 -g`.
 7. .env file is required to proceed, a list of required variables can be found in the ENV_VARIABLES constant located here `./waverd-server/src/utils/constants.ts`
 8. In development we run a few command to reflect changes on file change, and to keep our app running all the time. To simplify the process we created a bash file to handle this
+   > Make sure to install pm2 `pnpm install pm2 -g`
    > Run `bash dev.sh` to start our development server and compile TS to JS in the dist folder in realtime.
 9. Make sure to use `node` as environment, `yarn` as build command and `npm start` to start app in render
 10. Happy hacking...😉
