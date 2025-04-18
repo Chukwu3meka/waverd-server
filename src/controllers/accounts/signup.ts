@@ -10,14 +10,14 @@ import { catchError, requestHasBody } from "../../utils/handlers";
 export default async (req: Request, res: Response) => {
   try {
     requestHasBody({ body: req.body, required: ["email", "password", "name", "handle", "theme"] });
-    const { theme, email, password, name, handle } = req.body;
 
-    if (!THEMES.includes(theme)) throw { message: "Invalid theme used", sendError: true };
+    const { theme, email, password, name, handle } = req.body;
+    if (!THEMES.includes(theme)) throw { message: "User theme is not yet supported", sendError: true };
 
     // Validate request body before processing request
+    validate({ type: "name", value: name });
     validate({ type: "email", value: email });
     validate({ type: "handle", value: handle });
-    validate({ type: "name", value: name });
     validate({ type: "password", value: password });
 
     // ? check if email is taken already

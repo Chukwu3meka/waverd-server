@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 
 import { THEMES } from "../../utils/constants";
 import { ACCOUNTS_PROFILE } from "../../models/accounts.model";
-import { catchError, requestHasBody } from "../../utils/handlers";
+import { catchError, requestHasBody, sleep } from "../../utils/handlers";
 
 export default async (req: Request, res: Response) => {
   try {

@@ -18,6 +18,9 @@ export default async (req: Request, res: Response) => {
     validate({ type: "password", value: password });
     if (comment) validate({ type: "comment", value: comment });
 
+
+
+
     const profile = await ACCOUNTS_PROFILE.findById(auth.id);
     if (!profile) throw { message: "User Profile does not exists", sendError: true };
     if (profile.email !== email) throw { message: "Profile mismatch", sendError: true };

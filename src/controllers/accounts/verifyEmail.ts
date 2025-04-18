@@ -25,9 +25,9 @@ export default async (req: Request, res: Response) => {
       }
     );
 
-    if (updated) return res.redirect(302, `${process.env.CLIENT_URL}/accounts/email-verification?status=success`);
+    if (updated) return res.redirect(302, `${process.env.CLIENT_URL}/accounts/email-verified?status=success`);
   } catch (err: any) {
-    res.redirect(302, `${process.env.CLIENT_URL}/accounts/email-verification?status=failed`);
+    res.redirect(302, `${process.env.CLIENT_URL}/accounts/email-verified?status=failed`);
 
     err.respond = false;
     err.status = 409;

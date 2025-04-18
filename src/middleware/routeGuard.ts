@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken";
+import { ObjectId } from "mongodb";
 import { Request, Response, NextFunction } from "express";
 import { catchError, getIdFromSession } from "../utils/handlers";
 
@@ -19,7 +20,10 @@ export default async (req: Request, res: Response, next: NextFunction) => {
         const id = getIdFromSession(session);
         if (!id) throw { message: "Suspicious token" };
 
-        req.body = { ...req.body, auth: { id, session } };
+        req.body = {
+          ...req.body,
+          auth: { id: new ObjectId(id), session },
+        };
         errMessage = true;
         return;
       }

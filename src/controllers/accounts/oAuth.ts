@@ -17,7 +17,8 @@ const oAuthFunc = async (req: Request, res: Response) => {
     validator({ type: "email", value: email, label: "Email" });
 
     const profile = await ACCOUNTS_PROFILE.findOne({ email });
-    if (!profile || !profile.auth || !profile.auth.verification || !profile.auth.failedAttempts || !profile.auth.otp) throw { message: "Email not associated with any account", sendError: true }; // <= verify that account exist, else throw an error
+    if (!profile || !profile.auth || !profile.auth.verification || !profile.auth.failedAttempts || !profile.auth.otp)
+      throw { message: "Email not associated with any account", sendError: true }; // <= verify that account exist, else throw an error
 
     const {
       id,
@@ -80,7 +81,7 @@ const oAuthFunc = async (req: Request, res: Response) => {
       subject: `Successful Login to WaveRD via ${capitalize(auth)}`,
     });
 
-    return res.status(200).cookie("SSID", SSIDJwtToken, CLIENT_COOKIES_OPTION).redirect(302, `${process.env.CLIENT_URL}?auth=${auth}`);
+    return res.status(200).cookie("SSID", SSIDJwtToken, CLIENT_COOKIES_OPTION).redirect(302, `${process.env.CLIENT_URL}/accounts/signin?auth=${auth}`);
   } catch (err: any) {
     const message = err.sendError ? err.message : "We encountered an oAuth error. Kindly try again later or contact support if issue persists";
     return res.redirect(`${process.env.CLIENT_URL}/accounts/signin/?${auth}=${obfuscate(`${new Date()}`)}&response=${obfuscate(message)}`);

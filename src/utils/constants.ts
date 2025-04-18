@@ -15,7 +15,7 @@ export const CLIENT_COOKIES_OPTION: CookieOptions = {
   expires: calcFutureDate({ context: "days", interval: 180 }),
 };
 
-export const THEMES = ["dark", "light"];
+export const THEMES = ["dark", "light", "system"];
 
 export const CONTACT_PREFERENCES = ["email", "whatsapp"];
 
