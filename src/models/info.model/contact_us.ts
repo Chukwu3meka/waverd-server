@@ -7,7 +7,7 @@ const ContactUsSchema = new Schema({
   contact: { type: String, required: true },
   comment: { type: String, required: true },
   category: { type: String, required: true },
-  preference: { type: String, required: true },
+  preference: { type: String, enum: ["email", "whatsapp"], required: true },
 });
 
 const DailyStatModel = infoDatabase.model("Contact_Us", ContactUsSchema);

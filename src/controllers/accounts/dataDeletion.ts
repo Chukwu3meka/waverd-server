@@ -18,9 +18,6 @@ export default async (req: Request, res: Response) => {
     validate({ type: "password", value: password });
     if (comment) validate({ type: "comment", value: comment });
 
-
-
-
     const profile = await ACCOUNTS_PROFILE.findById(auth.id);
     if (!profile) throw { message: "User Profile does not exists", sendError: true };
     if (profile.email !== email) throw { message: "Profile mismatch", sendError: true };
@@ -30,19 +27,10 @@ export default async (req: Request, res: Response) => {
     if (profile.auth?.deletion) throw { message: "Data deletion already initiated", sendError: true };
 
     await ACCOUNTS_PROFILE.findOneAndUpdate(auth.id, { $set: { ["auth.deletion"]: new Date() } });
-    await INFO_ALL_CONTACT_US.create({ category: "Data Deletion", comment: comment || "", email });
+    await INFO_ALL_CONTACT_US.create({ category: "Data Deletion", comment: comment || "", preference: "email", contact: email });
+    await pushMail({ address: email, account: "accounts", template: "dataDeletion", data: { name: profile.name }, subject: "WaveRD - Data Deletion" });
 
-    await pushMail({
-      address: email,
-      account: "accounts",
-      template: "dataDeletion",
-      data: { name: profile.name },
-      subject: "WaveRD - Data Deletion",
-    });
-
-    const data = { success: true, message: `Data deletion initiated`, data: null };
-
-    res.status(201).json(data);
+    res.status(201).json({ success: true, message: `Data deletion initiated`, data: null });
   } catch (err: any) {
     err.status = 409;
     return catchError({ res, err });
