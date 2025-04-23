@@ -6,9 +6,6 @@ import { catchError, getIdFromSession } from "../utils/handlers";
 export default async (req: Request, res: Response, next: NextFunction) => {
   try {
     const cookie = req.cookies.SSID;
-
-    console.log({ a: cookie });
-
     if (!cookie) throw { message: "User not Authenticated" };
 
     let errMessage;
