@@ -1,4 +1,4 @@
-// ? Wave Research Development Web
+// ? WaveRD Development Web
 const devOrigins = [
   "http://localhost:8081",
   // "http://localhost:3001",
@@ -6,7 +6,7 @@ const devOrigins = [
   //
 ];
 
-// ? Wave Research Production
+// ? WaveRD Production
 // const prodOrigins = [
 //   // "https://www.waverd.com", // "https://.waverd.com",
 //   "https://waverd.com",

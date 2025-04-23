@@ -1,12 +1,12 @@
-import * as handler from "../handlers/console";
+import * as handler from "../controllers/console";
 import express, { Request, Response } from "express";
 
 import { codes } from "../utils/codes";
 import { formatDate } from "../utils/handlers";
-import { FAILED_REQUESTS } from "../models/info";
+import { INFO_ALL_FAILED_REQUESTS } from "../models/info.model";
 
 const fallbackRoute = async (req: Request, res: Response) => {
-  await FAILED_REQUESTS.create({
+  await INFO_ALL_FAILED_REQUESTS.create({
     error: "Invalid Console route",
     date: formatDate(new Date()),
     data: codes["Invalid Console Route"],
@@ -32,7 +32,7 @@ router.route("/logs/all-requests").get(handler.allRequests);
 router.route("/logs/failed-requests").get(handler.failedRequests);
 
 router.route("/games/game-worlds").post(handler.createGameWorld);
-router.route("/games/game-worlds").get(handler.createGameWorld);
+router.route("/games/game-worlds").get(handler.getGameWorlds);
 router.route("/games/game-worlds/:id").get(handler.createGameWorld);
 router.route("/games/game-worlds/:id").patch(handler.createGameWorld);
 

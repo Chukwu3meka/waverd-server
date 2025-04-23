@@ -2,7 +2,7 @@ export default ({ name }: any) => `
     Hi ${name},
     <br />
     <br />
-    We'd like to inform you that there was a failed login attempt to your Wave Research account. Our security systems have detected this activity after some failed attempts and We'd like to ensure your account is secure.    
+    We'd like to inform you that there was a failed login attempt to your WaveRD account. Our security systems have detected this activity after some failed attempts and We'd like to ensure your account is secure.    
     <br />
     <br />
     If you did not initiate this login attempt, we recommend you reset your password immediately. To reset your password, please follow the instructions in our password reset link <a href="https://www.waverd.com/accounts/password-reset">here</a>.

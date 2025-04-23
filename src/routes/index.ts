@@ -1,7 +1,7 @@
 import { Application } from "express";
 import { codes } from "../utils/codes";
 import { formatDate } from "../utils/handlers";
-import { FAILED_REQUESTS } from "../models/info";
+import { INFO_ALL_FAILED_REQUESTS } from "../models/info.model";
 
 import cors from "cors";
 import infoRoute from "./info";
@@ -17,7 +17,7 @@ import express, { Request, Response } from "express";
 import consoleGuard from "../middleware/consoleGuard";
 
 const fallbackRoute = async (req: Request, res: Response) => {
-  await FAILED_REQUESTS.create({
+  await INFO_ALL_FAILED_REQUESTS.create({
     error: "Invalid route",
     date: formatDate(new Date()),
     data: codes["Route not Found"],
@@ -28,12 +28,12 @@ const fallbackRoute = async (req: Request, res: Response) => {
 };
 
 export default (app: Application) => {
-  app.use(`${process.env.STABLE_VERSION}/info/`, cors(corsOptions), infoRoute);
-  app.use(`${process.env.STABLE_VERSION}/apihub/`, cors(corsOptions), apihubRoute);
-  app.use(`${process.env.STABLE_VERSION}/accounts/`, cors(corsOptions), accountsRoute);
-  app.use(`${process.env.STABLE_VERSION}/games/`, cors(corsOptions), routeGuard, gamesRoute);
-  app.use(`${process.env.STABLE_VERSION}/public/`, cors(corsOptions), publicGuard, publicRoute);
-  app.use(`${process.env.STABLE_VERSION}/console/`, cors(corsOptions), consoleGuard, consoleRoute);
+  app.use(`${process.env.STABLE_VERSION}/info`, cors(corsOptions), infoRoute);
+  app.use(`${process.env.STABLE_VERSION}/apihub`, cors(corsOptions), apihubRoute);
+  app.use(`${process.env.STABLE_VERSION}/accounts`, cors(corsOptions), accountsRoute);
+  app.use(`${process.env.STABLE_VERSION}/games`, cors(corsOptions), routeGuard, gamesRoute);
+  app.use(`${process.env.STABLE_VERSION}/public`, cors(corsOptions), publicGuard, publicRoute);
+  app.use(`${process.env.STABLE_VERSION}/console`, cors(corsOptions), consoleGuard, consoleRoute);
 
   // ? fallback route
   app.use("*", cors(corsOptions), fallbackRoute);

@@ -1,7 +1,7 @@
 {
   "name": "waverd-server",
   "version": "1.0.0",
-  "description": "Wave Research server",
+  "description": "WaveRD server",
   "main": "index.js",
   "scripts": {
     "build": "tsc",
@@ -17,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Chukwu3meka/Wave Research-Server.git"
+    "url": "git+https://github.com/Chukwu3meka/WaveRD-Server.git"
   },
   "keywords": [
     "soccer",
@@ -25,12 +25,12 @@
     "manager",
     "api"
   ],
-  "author": "Wave Research",
+  "author": "WaveRD",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Chukwu3meka/Wave Research-Server/issues"
+    "url": "https://github.com/Chukwu3meka/WaveRD-Server/issues"
   },
-  "homepage": "https://github.com/Chukwu3meka/Wave Research-Server#readme",
+  "homepage": "https://github.com/Chukwu3meka/WaveRD-Server#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.2",
@@ -47,7 +47,7 @@
     "morgan": "^1.10.0",
     "node-cron": "^3.0.3",
     "nodemailer": "^6.9.14",
-    "passport": "^0.7.0",
+    "passport": "0.5.0",
     "passport-facebook": "^3.0.0",
     "passport-google-oauth20": "^2.0.0",
     "passport-twitter": "^1.0.4",
@@ -56,6 +56,7 @@
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",
+    "@types/body-parser": "^1.19.5",
     "@types/connect-timeout": "^0.0.39",
     "@types/cookie-parser": "^1.4.7",
     "@types/cookie-session": "^2.0.49",
@@ -70,9 +71,11 @@
     "@types/passport-google-oauth20": "^2.0.16",
     "@types/passport-twitter": "^1.0.40",
     "@types/uuid": "^10.0.0",
-    "pm2": "^5.4.1",
+    "pm2": "^5.4.3",
     "ts-node": "^10.9.2",
-    "typescript": "^5.5.3"
+    "typescript": "^5.5.3",
+    "typescript-compiler": "1.4.1-2",
+    "kill-port": "2.0.1"
   },
   "engines": {
     "node": ">=20.10.0 <lts"
