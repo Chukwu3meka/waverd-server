@@ -2,10 +2,11 @@ import { Request, Response } from "express";
 import pushMail from "../../utils/pushMail";
 import validate from "../../utils/validate";
 import { ACCOUNTS_PROFILE } from "../../models/accounts.model";
-import { catchError, hourDiff, generateSession, calcFutureDate, requestHasBody } from "../../utils/handlers";
+import { catchError, generateSession, requestHasBody } from "../../utils/handlers";
 
 export default async (req: Request, res: Response) => {
-  const data = { success: true, message: "Password reset link sent", data: null }; // Always return true whether successful or failed
+  // ?? Always return true whether successful or failed
+  const data = { success: true, message: "Password reset has been initialized. Please check your email for further instructions.", data: null };
 
   try {
     requestHasBody({ body: req.body, required: ["email"] });

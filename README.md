@@ -40,18 +40,17 @@ All packages installed are key to this app running smoothly and we graciously th
 ## Getting Started
 
 1. _Fork_ **WaveRD Server** [here](https://github.com/Chukwu3meka/waverd-server)
-2. Now clone your remote branch, and run `pnpm install` or `pnpm i` for short; to install all packages
+2. Now clone your remote branch, and make sure to have pm2 installed globally. `pnpm install pm2 -g`.
 3. If you don't have a gitignore file, you can create one and [run](https://sigalambigha.home.blog/2020/03/11/how-to-refresh-gitignore/) `git rm -r --cached .` to ensure git is tracking the right file, i.e files not listed in the new _.gitignore_
 4. You need to clone the waverd-gateway repo to proceed, gateway allows client and server to run on the same port during development.
 5. If you maintain the same folder name after cloning waverd-gateway, no extra step is required.
    > else; Ensure to update the gateway path in `ecosystem.config.js` to match cloned path of waverd-gateway.
-6. Make sure to have pm2 installed globally. `pnpm install pm2 -g`.
-7. .env file is required to proceed, a list of required variables can be found in the ENV_VARIABLES constant located here `./waverd-server/src/utils/constants.ts`
-8. In development we run a few command to reflect changes on file change, and to keep our app running all the time. To simplify the process we created a bash file to handle this
+6. .env file is required to proceed, a list of required variables can be found in the ENV_VARIABLES constant located here `./waverd-server/src/utils/constants.ts`
+7. In development we run a few command to reflect changes on file change, and to keep our app running all the time. To simplify the process we created a bash file to handle this
    > Make sure to install pm2 `pnpm install pm2 -g`
    > Run `bash dev.sh` to start our development server and compile TS to JS in the dist folder in realtime.
-9. Make sure to use `node` as environment, `yarn` as build command and `npm start` to start app in render
-10. Happy hacking...😉
+8. Make sure to use `node` as environment, `yarn` as build command and `npm start` to start app in render
+9. Happy hacking...😉
 
 ## Commit Convention
 

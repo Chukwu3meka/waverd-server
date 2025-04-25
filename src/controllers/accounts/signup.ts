@@ -38,9 +38,11 @@ export default async (req: Request, res: Response) => {
 
         await pushMail({ account: "accounts", template: "welcome", address: email, subject: "Welcome to WaveRD", data: emailPayload });
 
-        const data = { success: true, message: "Account created successfully", data: null };
-
-        return res.status(201).json(data);
+        return res.status(201).json({
+          data: null,
+          success: true,
+          message: "Great news! Your account has been created successfully. Kindly check your email for a message from us containing an activation link.",
+        });
       })
       .catch(({ message }) => {
         throw { message: message || `Profile creation was unsuccessful`, client: !process.env.NODE_ENV };
