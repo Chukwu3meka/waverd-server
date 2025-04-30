@@ -5,7 +5,7 @@ import validate from "../../utils/validate";
 import { ACCOUNTS_PROFILE } from "../../models/accounts.model";
 import { Request, Response, NextFunction } from "express";
 import { CLIENT_COOKIES_OPTION } from "../../utils/constants";
-import { catchError, hourDiff, calcFutureDate, requestHasBody, generateSession, mitigateProfileBruteForce } from "../../utils/handlers";
+import { catchError, hourDiff, calcFutureDate, requestHasBody, generateSession, mitigateProfileBruteForce } from "../../utils/helpers";
 
 export default async (req: Request, res: Response, next: NextFunction) => {
   try {

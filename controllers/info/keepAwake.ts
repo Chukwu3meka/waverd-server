@@ -3,7 +3,7 @@
 
 import { Request, Response } from "express";
 
-import { catchError } from "../../utils/handlers";
+import { catchError } from "../../utils/helpers";
 
 export default async (req: Request, res: Response) => {
   const data = { success: true, message: `Success`, data: null };

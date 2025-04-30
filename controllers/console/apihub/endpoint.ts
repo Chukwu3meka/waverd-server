@@ -2,7 +2,7 @@ import { ObjectId } from "mongodb";
 import { isValidObjectId } from "mongoose";
 import { Request, Response } from "express";
 import { APIHUB_ENDPOINTS } from "../../../models/apihub.model";
-import { catchError, requestHasBody } from "../../../utils/handlers";
+import { catchError, requestHasBody } from "../../../utils/helpers";
 
 export default async (req: Request, res: Response) => {
   try {
@@ -35,11 +35,11 @@ export default async (req: Request, res: Response) => {
       message: "Endpoint retrieved successfully",
     };
 
-    return res.status(200).json(data);
+    res.status(200).json(data);
   } catch (err: any) {
     if (err.sendError && err.type === "validate") {
       const data = { success: false, message: err.description && err.description.message, data: null };
-      return res.status(400).json(data);
+      res.status(400).json(data);
     }
 
     return catchError({ res, err });

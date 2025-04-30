@@ -2,7 +2,7 @@ import * as handler from "../controllers/console";
 import express, { Request, Response } from "express";
 
 import { codes } from "../utils/codes";
-import { formatDate } from "../utils/handlers";
+import { formatDate } from "../utils/helpers";
 import { INFO_ALL_FAILED_REQUESTS } from "../models/info.model";
 
 const fallbackRoute = async (req: Request, res: Response) => {
@@ -13,7 +13,7 @@ const fallbackRoute = async (req: Request, res: Response) => {
     request: { body: JSON.stringify(req.body), headers: JSON.stringify(req.headers) },
   });
 
-  return res.status(200).json({ success: true, message: new Date().toDateString(), data: codes["Invalid Console Route"] });
+  res.status(200).json({ success: true, message: new Date().toDateString(), data: codes["Invalid Console Route"] });
 };
 
 const router = express.Router({ caseSensitive: true, strict: true });

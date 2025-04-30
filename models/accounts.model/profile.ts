@@ -2,7 +2,7 @@ import bcrypt from "bcryptjs";
 import { Schema } from "mongoose";
 
 import { accountsDatabase } from "../database";
-import { generateSession } from "../../utils/handlers";
+import { generateSession } from "../../utils/helpers";
 
 const ProfileSchema = new Schema(
   {

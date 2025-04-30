@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { GAMES_CLUB, GAMES_PLAYER } from "../../models/games.model";
-import { apiHubfetcher, catchError, preciseRound, requestHasBody } from "../../utils/handlers";
+import { apiHubfetcher, catchError, preciseRound, requestHasBody } from "../../utils/helpers";
 
 export default async function getWorldClub(req: Request, res: Response) {
   try {
@@ -20,7 +20,7 @@ export default async function getWorldClub(req: Request, res: Response) {
     ]);
 
     const refs = playersResult.map((club) => club.ref);
-    const players = await apiHubfetcher(`/ref/players?refs=[${refs}]`);
+    const players = (await apiHubfetcher(`/ref/players?refs=[${refs}]`)) as never as Array<any>;
     if (!players || !Array.isArray(players)) throw { sendError: true, message: `Internal Mapping failed, API Hub might be down` };
 
     const gamesClubData = await GAMES_CLUB.aggregate([
@@ -31,7 +31,7 @@ export default async function getWorldClub(req: Request, res: Response) {
 
     if (!gamesClubData.length) throw { sendError: true, message: `Failed to fetch club data from Games Database` };
 
-    const apihubClubData = await apiHubfetcher(`/clubs/${club}`);
+    const apihubClubData = (await apiHubfetcher(`/clubs/${club}`)) as never as Array<any>;
     if (!apihubClubData) throw { sendError: true, message: `Club's data not returned from API Hub` };
 
     const totalRating = players.reduce((total, curr) => (total += curr.rating), 0),
@@ -45,11 +45,11 @@ export default async function getWorldClub(req: Request, res: Response) {
       data: { players, club: { rating: clubRating, ...apihubClubData, ...gamesClubData[0] } },
     };
 
-    return res.status(200).json(data);
+    res.status(200).json(data);
   } catch (err: any) {
     if (err.sendError && err.type === "validate") {
       const data = { success: false, message: err.description && err.description.message, data: null };
-      return res.status(400).json(data);
+      res.status(400).json(data);
     }
 
     return catchError({ res, err });

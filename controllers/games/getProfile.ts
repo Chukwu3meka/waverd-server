@@ -1,7 +1,7 @@
 import { ObjectId } from "mongodb";
 import { Request, Response } from "express";
 import { getProfileHandler } from "../accounts";
-import { catchError } from "../../utils/handlers";
+import { catchError } from "../../utils/helpers";
 import { GAMES_PROFILE } from "../../models/games.model";
 
 export default async (req: Request, res: Response) => {
@@ -17,7 +17,7 @@ export default async (req: Request, res: Response) => {
     if (!gameProfile) throw { message: "Games Profile not found", sendError: true };
     const data = { success: true, message: `Profile details retrieved successfully`, data: gameProfile };
 
-    return res.status(200).json(data);
+    res.status(200).json(data);
   } catch (err: any) {
     return catchError({ res, err });
   }

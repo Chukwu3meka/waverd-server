@@ -5,7 +5,7 @@ import pushMail from "../../utils/pushMail";
 import validator from "../../utils/validate";
 import { ACCOUNTS_PROFILE } from "../../models/accounts.model";
 import { CLIENT_COOKIES_OPTION } from "../../utils/constants";
-import { capitalize, catchError, hourDiff, generateSession, calcFutureDate, obfuscate, mitigateProfileBruteForce } from "../../utils/handlers";
+import { capitalize, catchError, hourDiff, generateSession, calcFutureDate, obfuscate, mitigateProfileBruteForce } from "../../utils/helpers";
 
 import { PushMail } from "../../interface/pushMail-handlers-interface";
 
@@ -81,10 +81,10 @@ const oAuthFunc = async (req: Request, res: Response) => {
       subject: `Successful Login to WaveRD via ${capitalize(auth)}`,
     });
 
-    return res.status(200).cookie("SSID", SSIDJwtToken, CLIENT_COOKIES_OPTION).redirect(302, `${process.env.CLIENT_URL}/accounts/signin?auth=${auth}`);
+    res.status(200).cookie("SSID", SSIDJwtToken, CLIENT_COOKIES_OPTION).redirect(302, `${process.env.CLIENT_URL}/accounts/signin?auth=${auth}`);
   } catch (err: any) {
     const message = err.sendError ? err.message : "We encountered an oAuth error. Kindly try again later or contact support if issue persists";
-    return res.redirect(`${process.env.CLIENT_URL}/accounts/signin/?${auth}=${obfuscate(`${new Date()}`)}&response=${obfuscate(message)}`);
+    res.redirect(`${process.env.CLIENT_URL}/accounts/signin/?${auth}=${obfuscate(`${new Date()}`)}&response=${obfuscate(message)}`);
   }
 };
 

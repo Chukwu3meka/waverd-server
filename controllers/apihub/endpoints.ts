@@ -3,7 +3,7 @@ import validator from "../../utils/validate";
 import { BSON } from "mongodb";
 import { Request, Response } from "express";
 import { APIHUB_ENDPOINTS } from "../../models/apihub.model";
-import { catchError, range, requestHasBody } from "../../utils/handlers";
+import { catchError, range, requestHasBody } from "../../utils/helpers";
 
 export default async (req: Request, res: Response) => {
   try {
@@ -59,7 +59,7 @@ export default async (req: Request, res: Response) => {
           data: { size, page, totalElements: resultCount[0] ? resultCount[0].totalElements : 0, content: result },
         };
 
-        return res.status(200).json(data);
+        res.status(200).json(data);
       }
 
       case "category": {
@@ -115,7 +115,7 @@ export default async (req: Request, res: Response) => {
           data: { size, page, totalElements: resultCount[0] ? resultCount[0].totalElements : 0, content: result },
         };
 
-        return res.status(200).json(data);
+        res.status(200).json(data);
       }
 
       case "search": {
@@ -222,7 +222,7 @@ export default async (req: Request, res: Response) => {
           message: result.length ? "Endpoints similar to Search Phrase retrieved" : "Could not match endpoints with search phrase",
         };
 
-        return res.status(200).json(data);
+        res.status(200).json(data);
       }
 
       default:
@@ -232,7 +232,7 @@ export default async (req: Request, res: Response) => {
     if (err.sendError && err.type === "validate") {
       // const data = { success: false, message: "Endpoints could not be retrieved", data: null };
       const data = { success: false, message: err.description && err.description.message, data: null };
-      return res.status(400).json(data);
+      res.status(400).json(data);
     }
 
     return catchError({ res, err });

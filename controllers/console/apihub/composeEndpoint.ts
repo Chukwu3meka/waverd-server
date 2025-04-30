@@ -3,7 +3,7 @@ import validate from "../../../utils/validate";
 import { Request, Response } from "express";
 import { APIHUB_ENDPOINTS } from "../../../models/apihub.model";
 import { HTTP_METHODS } from "../../../utils/constants";
-import { apiHubfetcher, catchError, requestHasBody, sleep } from "../../../utils/handlers";
+import { apiHubfetcher, catchError, requestHasBody, sleep } from "../../../utils/helpers";
 
 export const endpointTitleExistsFn = async (title: string) => {
   validate({ type: "comment", value: title, sendError: true, label: "Title" });
@@ -43,7 +43,7 @@ const composeEndpoint = async (req: Request, res: Response) => {
     const composeResponse = await composeHandler({ method, path });
     if (!composeResponse) throw { message: "Unable to compose Endpoint" };
 
-    return res.status(composeResponse.success ? 200 : 406).json(composeResponse);
+    res.status(composeResponse.success ? 200 : 406).json(composeResponse);
   } catch (err: any) {
     err.status = 409;
     return catchError({ res, err });

@@ -4,7 +4,7 @@ import { MongoServerError } from "mongodb";
 import { Request, Response } from "express";
 import { GAMES_CALENDAR, GAMES_CLUB, GAMES_STATISTIC, GAMES_TABLE } from "../../../models/games.model";
 import { FixturesGenerator } from "../../../utils/fixturesGenerator";
-import { ObjectEntries, apiHubfetcher, catchError, requestHasBody, sleep, textToId } from "../../../utils/handlers";
+import { ObjectEntries, apiHubfetcher, catchError, requestHasBody, sleep, textToId } from "../../../utils/helpers";
 
 export default async (req: Request, res: Response) => {
   res.writeHead(200, { "Content-Type": "text/event-stream", "Cache-Control": "no-cache", Connection: "keep-alive" });
@@ -24,10 +24,10 @@ export default async (req: Request, res: Response) => {
   } catch (err: any) {
     if (err.sendError && err.type === "validate") {
       await streamResponse("pending", err.description && err.description.message);
-      return res.end();
+      res.end();
     } else if (err.sendError && err.message) {
       await streamResponse("failed", err.message);
-      return res.end();
+      res.end();
     } else {
       return catchError({ res, err: err?.message ? { ...err, type: "stream" } : err });
     }

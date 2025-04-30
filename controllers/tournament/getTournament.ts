@@ -1,5 +1,5 @@
 import { APIHUB_TOURNAMENTS } from "../../models/apihub.model";
-import { catchError } from "../../utils/handlers";
+import { catchError } from "../../utils/helpers";
 import { NextFunction, Request, Response } from "express";
 
 export default async (req: Request, res: Response, next: NextFunction) => {
@@ -13,9 +13,9 @@ export default async (req: Request, res: Response, next: NextFunction) => {
     const result = await APIHUB_TOURNAMENTS.find({ code });
 
     if (!result.length) throw { message: "Unable to retrieve Tournaments", sendError: true };
-    const data = { success: true, data: result, message: "Tournamnets successfully retrieved" };
+    const data = { success: true, data: result, message: "Tournaments successfully retrieved" };
 
-    return res.status(200).json(data);
+    res.status(200).json(data);
   } catch (err: any) {
     return catchError({ res, err });
   }

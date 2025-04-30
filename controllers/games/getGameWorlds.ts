@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { GAMES_STATISTIC } from "../../models/games.model";
-import { catchError, requestHasBody } from "../../utils/handlers";
+import { catchError, requestHasBody } from "../../utils/helpers";
 
 export default async function getGameWorlds(req: Request, res: Response) {
   try {
@@ -29,11 +29,11 @@ export default async function getGameWorlds(req: Request, res: Response) {
       message: result.length ? "Game Worlds retrieved successfully" : "Failed to retrieve any Game World",
     };
 
-    return res.status(200).json(data);
+    res.status(200).json(data);
   } catch (err: any) {
     if (err.sendError && err.type === "validate") {
       const data = { success: false, message: err.description && err.description.message, data: null };
-      return res.status(400).json(data);
+      res.status(400).json(data);
     }
 
     return catchError({ res, err });

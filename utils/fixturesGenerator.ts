@@ -1,7 +1,7 @@
 import { Response } from "express";
 import { Calendar, Table } from "../interface/games.interface";
 import { DIVISIONS, QUALIFICATION, SINGLE_DIVISION, TOTAL_CLUBS } from "./constants";
-import { createSubarrays, range, shuffleArray, sleep } from "./handlers";
+import { createSubarrays, range, shuffleArray, sleep } from "./helpers";
 import { GAMES_CALENDAR, GAMES_CLUB, GAMES_TABLE } from "../models/games.model";
 
 interface GenComptTable {
@@ -487,13 +487,7 @@ export class FixturesGenerator {
     return fixtures.sort((b, a) => new Date(b.date).getTime() - new Date(a.date).getTime());
   }
 
-  private async genWorldTierFixtures({
-    tier,
-    world,
-    existingWorld,
-    table,
-    countries,
-  }: GenWorldTierFixtures): Promise<{ calendar: Calendar[]; table: Table[] }> {
+  private async genWorldTierFixtures({ tier, world, existingWorld, table, countries }: GenWorldTierFixtures): Promise<{ calendar: Calendar[]; table: Table[] }> {
     const eligibleClubs: GroupClub[] = [];
     await this.streamResponse("pending", `Getting previous season Division table for Game world: ${world}`);
 
@@ -509,17 +503,13 @@ export class FixturesGenerator {
         if (!gameWorldTables.length) throw { sendError: true, message: "Game world division one table not found" };
 
         eligibleClubs.push(
-          ...[...gameWorldTables]
-            .splice(startClubIndex - startClubIndex, startClubIndex)
-            .map((data) => ({ club: data.club as string, division: competition }))
+          ...[...gameWorldTables].splice(startClubIndex - startClubIndex, startClubIndex).map((data) => ({ club: data.club as string, division: competition }))
         );
       } else {
         const gameWorldTables = table.filter((data) => data.competition === competition);
         if (!gameWorldTables.length) throw { sendError: true, message: "Game world division one table not found" };
 
-        eligibleClubs.push(
-          ...[...gameWorldTables].splice(startClubIndex - startClubIndex, startClubIndex).map((data) => ({ club: data.club, division: competition }))
-        );
+        eligibleClubs.push(...[...gameWorldTables].splice(startClubIndex - startClubIndex, startClubIndex).map((data) => ({ club: data.club, division: competition })));
       }
     }
     await this.streamResponse("success", `Getting previous season Division table for Game world: ${world}`);

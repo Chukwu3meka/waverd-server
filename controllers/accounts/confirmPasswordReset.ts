@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 import pushMail from "../../utils/pushMail";
 import validate from "../../utils/validate";
 import { ACCOUNTS_PROFILE } from "../../models/accounts.model";
-import { catchError, hourDiff, requestHasBody } from "../../utils/handlers";
+import { catchError, hourDiff, requestHasBody } from "../../utils/helpers";
 
 export default async (req: Request, res: Response) => {
   try {
@@ -38,7 +38,7 @@ export default async (req: Request, res: Response) => {
     });
 
     const data = { success: true, message: "Password reset successful", data: null }; // Always return true whether successful or failed
-    return res.status(201).json(data);
+    res.status(201).json(data);
   } catch (err: any) {
     return catchError({ res, err });
   }

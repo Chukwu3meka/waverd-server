@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import pushMail from "../../utils/pushMail";
 import validate from "../../utils/validate";
 import { ACCOUNTS_PROFILE } from "../../models/accounts.model";
-import { catchError, generateSession, requestHasBody } from "../../utils/handlers";
+import { catchError, generateSession, requestHasBody } from "../../utils/helpers";
 
 export default async (req: Request, res: Response) => {
   // ?? Always return true whether successful or failed
@@ -38,7 +38,7 @@ export default async (req: Request, res: Response) => {
       });
     });
 
-    return res.status(200).json(data);
+    res.status(200).json(data);
   } catch (err: any) {
     if (!err.sendError) {
       res.status(200).json(data);

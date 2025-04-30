@@ -4,7 +4,7 @@ import { MongoServerError } from "mongodb";
 import { Request, Response } from "express";
 import { GAMES_CLUB, GAMES_STATISTIC } from "../../../models/games.model";
 import { FixturesGenerator } from "../../../utils/fixturesGenerator";
-import { apiHubfetcher, catchError, range, requestHasBody, sleep } from "../../../utils/handlers";
+import { apiHubfetcher, catchError, range, requestHasBody, sleep } from "../../../utils/helpers";
 
 export default async (req: Request, res: Response) => {
   res.writeHead(200, { "Content-Type": "text/event-stream", "Cache-Control": "no-cache", Connection: "keep-alive" });
@@ -31,12 +31,12 @@ export default async (req: Request, res: Response) => {
 
     await streamResponse("pending", `Generating inititial clubs for ${title} Game World`);
     const clubs: { club: string; world: string; division: string; budget: number }[] = [],
-      divisons = await apiHubfetcher("/tournament?code=division"),
+      divisons = (await apiHubfetcher("/tournament?code=division")) as never as Array<any>,
       unmanaged: { total: number; division: string }[] = [],
       divisionClubs: { [key: string]: string[] } = {};
 
     for (const { ref: division } of divisons) {
-      const divClubs = await apiHubfetcher(`/tournament/clubs/${division}`);
+      const divClubs = (await apiHubfetcher(`/tournament/clubs/${division}`)) as never as Array<any>;
       if (!divClubs) throw { sendError: true, message: "Division CLubs not returned" };
 
       divisionClubs[division] = divClubs.map((club: any) => club.ref);
@@ -85,14 +85,14 @@ export default async (req: Request, res: Response) => {
       });
 
     await streamResponse("success", `Game world created successfully`);
-    return res.end();
+    res.end();
   } catch (err: any) {
     if (err.sendError && err.type === "validate") {
       await streamResponse("pending", err.description && err.description.message);
-      return res.end();
+      res.end();
     } else if (err.sendError && err.message) {
       await streamResponse("failed", err.message);
-      return res.end();
+      res.end();
     } else {
       return catchError({ res, err: err?.message ? { ...err, type: "stream" } : err });
     }

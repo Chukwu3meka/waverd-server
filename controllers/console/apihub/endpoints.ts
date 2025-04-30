@@ -2,7 +2,7 @@ import validator from "../../../utils/validate";
 
 import { Request, Response } from "express";
 import { APIHUB_ENDPOINTS } from "../../../models/apihub.model";
-import { catchError, range, requestHasBody } from "../../../utils/handlers";
+import { catchError, range, requestHasBody } from "../../../utils/helpers";
 import { SIZES } from "../../../utils/constants";
 
 export default async (req: Request, res: Response) => {
@@ -77,10 +77,7 @@ export default async (req: Request, res: Response) => {
           },
         ]);
 
-        resultCount = await APIHUB_ENDPOINTS.aggregate([
-          { $match: { title: { $regex: new RegExp(filter as string, "i") } } },
-          { $count: "totalElements" },
-        ]);
+        resultCount = await APIHUB_ENDPOINTS.aggregate([{ $match: { title: { $regex: new RegExp(filter as string, "i") } } }, { $count: "totalElements" }]);
       }
     }
 
@@ -90,11 +87,11 @@ export default async (req: Request, res: Response) => {
       data: { size, page, totalElements: resultCount ? (resultCount[0] ? resultCount[0].totalElements : 0) : 0, content: result },
     };
 
-    return res.status(200).json(data);
+    res.status(200).json(data);
   } catch (err: any) {
     if (err.sendError && err.type === "validate") {
       const data = { success: false, message: err.description && err.description.message, data: null };
-      return res.status(400).json(data);
+      res.status(400).json(data);
     }
 
     return catchError({ res, err });

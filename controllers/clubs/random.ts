@@ -1,5 +1,5 @@
 import { APIHUB_CLUBS } from "../../models/apihub.model";
-import { catchError } from "../../utils/handlers";
+import { catchError } from "../../utils/helpers";
 import { NextFunction, Request, Response } from "express";
 
 export default async (req: Request, res: Response, next: NextFunction) => {
@@ -37,7 +37,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
 
     const data = { success: true, data: result, message: "Players Successfully retrieved" };
 
-    return res.status(200).json(data);
+    res.status(200).json(data);
   } catch (err: any) {
     return catchError({ res, err });
   }

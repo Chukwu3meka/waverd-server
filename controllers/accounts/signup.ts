@@ -5,7 +5,7 @@ import { emailExistsFn } from "./emailExists";
 import { THEMES } from "../../utils/constants";
 import { handleExistsFn } from "./handleExists";
 import { ACCOUNTS_PROFILE } from "../../models/accounts.model";
-import { catchError, requestHasBody } from "../../utils/handlers";
+import { catchError, requestHasBody } from "../../utils/helpers";
 
 export default async (req: Request, res: Response) => {
   try {
@@ -38,7 +38,7 @@ export default async (req: Request, res: Response) => {
 
         await pushMail({ account: "accounts", template: "welcome", address: email, subject: "Welcome to WaveRD", data: emailPayload });
 
-        return res.status(201).json({
+        res.status(201).json({
           data: null,
           success: true,
           message: "Great news! Your account has been created successfully. Kindly check your email for a message from us containing an activation link.",
