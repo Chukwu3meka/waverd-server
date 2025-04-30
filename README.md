@@ -49,7 +49,8 @@ All packages installed are key to this app running smoothly and we graciously th
    > Make sure to install pm2 `npm install pm2 -g`
    > Run `bash dev.sh` to start our development server and compile TS to JS in the dist folder in realtime.
 7. Make sure to use `node` as environment, `yarn` as build command and `npm start` to start app in render
-8. Happy hacking...😉
+8. To verify build status locally, run `npx tsc`.
+9. Happy hacking...😉
 
 ## Commit Convention
 
