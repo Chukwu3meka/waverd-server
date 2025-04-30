@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import { ObjectId } from "mongodb";
 import { Request, Response, NextFunction } from "express";
-import { catchError, getIdFromSession } from "../utils/handlers";
+import { catchError, getIdFromSession } from "../utils/helpers";
 
 export default async (req: Request, res: Response, next: NextFunction) => {
   try {

@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { SIZES } from "../../../utils/constants";
 import { INFO_ALL_DAILY_STAT } from "../../../models/info.model";
-import { catchError, requestHasBody } from "../../../utils/handlers";
+import { catchError, requestHasBody } from "../../../utils/helpers";
 
 export default async function dailyStatistics(req: Request, res: Response) {
   try {
@@ -31,8 +31,7 @@ export default async function dailyStatistics(req: Request, res: Response) {
         [year, month, day] = [parseInt(tempYear), parseInt(tempMonth), parseInt(tempDay)];
 
       const today = new Date();
-      if (year > today.getUTCFullYear() || month > today.getUTCMonth() + 1 || day > today.getUTCDate())
-        throw { message: "Date range is broken", sendError: true };
+      if (year > today.getUTCFullYear() || month > today.getUTCMonth() + 1 || day > today.getUTCDate()) throw { message: "Date range is broken", sendError: true };
 
       result = await INFO_ALL_DAILY_STAT.aggregate([
         // { $match: { title: { $regex: new RegExp(filter as string, "i") } } }, // Optional, 'i' for case-insensitive
@@ -61,11 +60,11 @@ export default async function dailyStatistics(req: Request, res: Response) {
       data: { size, page, totalElements: resultCount ? (resultCount[0] ? resultCount[0].totalElements : 0) : 0, content: result },
     };
 
-    return res.status(200).json(data);
+    res.status(200).json(data);
   } catch (err: any) {
     if (err.sendError && err.type === "validate") {
       const data = { success: false, message: err.description && err.description.message, data: null };
-      return res.status(400).json(data);
+      res.status(400).json(data);
     }
 
     return catchError({ res, err });

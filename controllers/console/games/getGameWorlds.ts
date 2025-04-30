@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { catchError, range, requestHasBody } from "../../../utils/handlers";
+import { catchError, range, requestHasBody } from "../../../utils/helpers";
 import { SIZES } from "../../../utils/constants";
 import { GAMES_STATISTIC } from "../../../models/games.model";
 
@@ -65,10 +65,7 @@ export default async function getGameWorlds(req: Request, res: Response) {
           },
         ]);
 
-        resultCount = await GAMES_STATISTIC.aggregate([
-          { $match: { title: { $regex: new RegExp(filter as string, "i") } } },
-          { $count: "totalElements" },
-        ]);
+        resultCount = await GAMES_STATISTIC.aggregate([{ $match: { title: { $regex: new RegExp(filter as string, "i") } } }, { $count: "totalElements" }]);
       }
     }
 
@@ -78,11 +75,11 @@ export default async function getGameWorlds(req: Request, res: Response) {
       data: { size, page, totalElements: resultCount ? (resultCount[0] ? resultCount[0].totalElements : 0) : 0, content: result },
     };
 
-    return res.status(200).json(data);
+    res.status(200).json(data);
   } catch (err: any) {
     if (err.sendError && err.type === "validate") {
       const data = { success: false, message: err.description && err.description.message, data: null };
-      return res.status(400).json(data);
+      res.status(400).json(data);
     }
 
     return catchError({ res, err });

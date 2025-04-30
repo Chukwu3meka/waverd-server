@@ -1,6 +1,6 @@
 import { Application } from "express";
 import { codes } from "../utils/codes";
-import { formatDate } from "../utils/handlers";
+import { formatDate } from "../utils/helpers";
 import { INFO_ALL_FAILED_REQUESTS } from "../models/info.model";
 
 import cors from "cors";
@@ -24,7 +24,7 @@ const fallbackRoute = async (req: Request, res: Response) => {
     request: { body: JSON.stringify(req.body), headers: JSON.stringify(req.headers) },
   });
 
-  return res.status(404).json({ success: false, message: "Route not found", data: codes["Route not Found"] });
+  res.status(404).json({ success: false, message: "Route not found", data: codes["Route not Found"] });
 };
 
 export default (app: Application) => {

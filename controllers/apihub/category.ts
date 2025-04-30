@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { APIHUB_CATEGORIES, APIHUB_ENDPOINTS } from "../../models/apihub.model";
-import { capitalize, catchError } from "../../utils/handlers";
+import { capitalize, catchError } from "../../utils/helpers";
 
 export default async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -15,11 +15,11 @@ export default async (req: Request, res: Response, next: NextFunction) => {
 
     const data = { success: true, data: categories, message: "Endpoints Successfully retrieved" };
 
-    return res.status(200).json(data);
+    res.status(200).json(data);
   } catch (err: any) {
     if (err.sendError && err.type === "validate") {
       const data = { success: true, message: "Categories could not be retrieved", data: [] };
-      return res.status(200).json(data);
+      res.status(200).json(data);
     }
 
     return catchError({ res, err });

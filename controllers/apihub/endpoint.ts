@@ -1,6 +1,6 @@
 import { APIHUB_ENDPOINTS } from "../../models/apihub.model";
 import { NextFunction, Request, Response } from "express";
-import { catchError, requestHasBody } from "../../utils/handlers";
+import { catchError, requestHasBody } from "../../utils/helpers";
 
 export default async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -18,7 +18,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
 
     const data = { success: true, data: result, message: "Endpoint Successfully retrieved" };
 
-    return res.status(200).json(data);
+    res.status(200).json(data);
   } catch (err: any) {
     return catchError({ res, err });
   }

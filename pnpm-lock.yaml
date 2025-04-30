@@ -90,6 +90,9 @@ importers:
       '@types/cookie-session':
         specifier: ^2.0.49
         version: 2.0.49
+      '@types/cors':
+        specifier: ^2.8.17
+        version: 2.8.17
       '@types/express':
         specifier: ^5.0.1
         version: 5.0.1

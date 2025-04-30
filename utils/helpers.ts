@@ -4,8 +4,8 @@ import { v4 as uuid } from "uuid";
 import { ObjectId } from "mongoose";
 import { ACCOUNTS_PROFILE } from "../models/accounts.model";
 import { INFO_ALL_FAILED_REQUESTS } from "../models/info.model";
-import { CatchError } from "../interface/utils-handlers-interface";
-import { CalcFutureDate, MitigateProfileBruteForce, RequestHasBody } from "../interface/utils/handlers.interface";
+import { CatchError } from "../interface/utils-helpers-interface";
+import { CalcFutureDate, MitigateProfileBruteForce, RequestHasBody } from "../interface/utils/helpers.interface";
 import { styleText } from "util";
 
 export const catchError = async ({ res, req, err: initError }: CatchError) => {
@@ -360,7 +360,7 @@ and then sending the actual request if the server responds with the appropriate 
       return res
         .json()
         .then(async (res) => {
-          return res.data;
+          res.data;
         })
         .catch(async (err) => {
           throw { base: ".catch", message: err };

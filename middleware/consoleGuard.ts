@@ -5,7 +5,7 @@ import { codes } from "../utils/codes";
 import { ACCOUNTS_PROFILE } from "../models/accounts.model";
 import { INFO_ALL_FAILED_REQUESTS } from "../models/info.model";
 import { Request, Response, NextFunction } from "express";
-import { catchError, formatDate, getIdFromSession } from "../utils/handlers";
+import { catchError, formatDate, getIdFromSession } from "../utils/helpers";
 
 export default async (req: Request, res: Response, next: NextFunction) => {
   const guardResponse = async (message: string) => {
@@ -16,7 +16,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
       request: { body: JSON.stringify(req.body), headers: JSON.stringify(req.headers) },
     });
 
-    return res.status(200).json({ success: true, message: new Date().toDateString(), data: codes["Invalid Console Route"] });
+    res.status(200).json({ success: true, message: new Date().toDateString(), data: codes["Invalid Console Route"] });
   };
 
   try {
@@ -46,7 +46,10 @@ export default async (req: Request, res: Response, next: NextFunction) => {
       }
     });
   } catch (err: any) {
-    if (err.message) return guardResponse(err.message);
+    if (err.message) {
+      guardResponse(err.message);
+      return;
+    }
 
     err.respond = false;
     return catchError({ res, err });

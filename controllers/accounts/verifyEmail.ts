@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import validate from "../../utils/validate";
 import { ACCOUNTS_PROFILE } from "../../models/accounts.model";
-import { catchError, getIdFromSession, requestHasBody } from "../../utils/handlers";
+import { catchError, getIdFromSession, requestHasBody } from "../../utils/helpers";
 
 export default async (req: Request, res: Response) => {
   try {
@@ -25,7 +25,7 @@ export default async (req: Request, res: Response) => {
       }
     );
 
-    if (updated) return res.redirect(302, `${process.env.CLIENT_URL}/accounts/email-verified?status=success`);
+    if (updated) res.redirect(302, `${process.env.CLIENT_URL}/accounts/email-verified?status=success`);
   } catch (err: any) {
     res.redirect(302, `${process.env.CLIENT_URL}/accounts/email-verified?status=failed`);
 

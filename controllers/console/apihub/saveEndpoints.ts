@@ -6,7 +6,7 @@ import { Request, Response } from "express";
 import { APIHUB_ENDPOINTS } from "../../../models/apihub.model";
 import { HTTP_METHODS } from "../../../utils/constants";
 import { composeHandler, endpointTitleExistsFn } from "..";
-import { catchError, requestHasBody, textToId } from "../../../utils/handlers";
+import { catchError, requestHasBody, textToId } from "../../../utils/helpers";
 
 export default async (req: Request, res: Response) => {
   try {
@@ -79,16 +79,16 @@ export default async (req: Request, res: Response) => {
       data: `Endpoint ${id === "new" ? "created" : "updated"} successfully with this ID: ${resId || id}`,
     };
 
-    return res.status(id === "new" ? 201 : 200).json(data);
+    res.status(id === "new" ? 201 : 200).json(data);
   } catch (err: any) {
     if (err.sendError && err.type === "validate") {
       const data = { success: false, message: err.description && err.description.message, data: null };
-      return res.status(400).json(data);
+      res.status(400).json(data);
     }
 
     if (err.sendError && err.type === "method") {
       const data = { success: false, message: err.message, data: null };
-      return res.status(405).json(data);
+      res.status(405).json(data);
     }
 
     return catchError({ res, err });

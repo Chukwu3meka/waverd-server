@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 
-import { catchError } from "../utils/handlers";
+import { catchError } from "../utils/helpers";
 
 export default async (req: Request, res: Response, next: NextFunction) => {
   try {

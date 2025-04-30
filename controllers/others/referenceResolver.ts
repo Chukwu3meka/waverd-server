@@ -1,7 +1,7 @@
 import * as CATEGORIES_MODEL from "../../models/apihub.model";
 
 import { Request, Response } from "express";
-import { catchError, requestHasBody } from "../../utils/handlers";
+import { catchError, requestHasBody } from "../../utils/helpers";
 
 export default async function referenceResolver(req: Request, res: Response) {
   try {
@@ -20,10 +20,7 @@ export default async function referenceResolver(req: Request, res: Response) {
     if (refs.length > maxRef[category]) throw { sendError: true, message: `Reference resolver limit (${maxRef}) exceeded` };
 
     const labelName = category === "APIHUB_CLUBS" ? "title" : category === "APIHUB_PLAYERS" ? "name" : "",
-      result = await CATEGORIES_MODEL[category].aggregate([
-        { $match: { ref: { $in: refs } } },
-        { $project: { [labelName]: true, ref: true, _id: false } },
-      ]);
+      result = await CATEGORIES_MODEL[category].aggregate([{ $match: { ref: { $in: refs } } }, { $project: { [labelName]: true, ref: true, _id: false } }]);
 
     const data = {
       success: true,
@@ -31,11 +28,11 @@ export default async function referenceResolver(req: Request, res: Response) {
       message: result.length ? "Converted successfully" : "Convertion Failed",
     };
 
-    return res.status(200).json(data);
+    res.status(200).json(data);
   } catch (err: any) {
     if (err.sendError && err.type === "validate") {
       const data = { success: false, message: err.description && err.description.message, data: null };
-      return res.status(400).json(data);
+      res.status(400).json(data);
     }
 
     return catchError({ res, err });

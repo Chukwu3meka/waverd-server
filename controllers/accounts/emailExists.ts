@@ -2,7 +2,7 @@ import validate from "../../utils/validate";
 
 import { Request, Response } from "express";
 import { ACCOUNTS_PROFILE } from "../../models/accounts.model";
-import { catchError, requestHasBody } from "../../utils/handlers";
+import { catchError, requestHasBody } from "../../utils/helpers";
 
 export const emailExistsFn = async (email: string) => {
   validate({ type: "email", value: email });

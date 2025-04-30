@@ -2,7 +2,7 @@ import validate from "../../../utils/validate";
 
 import { Request, Response } from "express";
 import { APIHUB_ENDPOINTS } from "../../../models/apihub.model";
-import { catchError, requestHasBody } from "../../../utils/handlers";
+import { catchError, requestHasBody } from "../../../utils/helpers";
 
 const endpointTitleExistsFn = async (title: string) => {
   validate({ type: "comment", value: title, sendError: true, label: "Title" });

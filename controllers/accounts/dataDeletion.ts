@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 import validate from "../../utils/validate";
 import { ACCOUNTS_PROFILE } from "../../models/accounts.model";
 import { INFO_ALL_CONTACT_US } from "../../models/info.model";
-import { catchError, mitigateProfileBruteForce, requestHasBody } from "../../utils/handlers";
+import { catchError, mitigateProfileBruteForce, requestHasBody } from "../../utils/helpers";
 
 import pushMail from "../../utils/pushMail";
 

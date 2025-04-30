@@ -2,7 +2,7 @@ import { APIHUB_CLUBS } from "../../models/apihub.model";
 import { Request, Response } from "express";
 import { GAMES_CLUB } from "../../models/games.model";
 // import { FEDERATED_CLUBS } from "../../models/federated";
-import { apiHubfetcher, catchError, requestHasBody } from "../../utils/handlers";
+import { apiHubfetcher, catchError, requestHasBody } from "../../utils/helpers";
 
 export default async (req: Request, res: Response) => {
   try {
@@ -23,7 +23,7 @@ export default async (req: Request, res: Response) => {
     ]);
 
     const refs = clubsResult.map((club) => club.ref);
-    const mapperResult = await apiHubfetcher(`/others/reference-resolver?category=clubs&refs=${refs}`);
+    const mapperResult = (await apiHubfetcher(`/others/reference-resolver?category=clubs&refs=${refs}`)) as never as Array<any>;
     if (!mapperResult || !Array.isArray(mapperResult)) throw { sendError: true, message: `Internal Mapping failed, API Hub might be down` };
 
     const clubs = mapperResult.map(({ ref, title }) => {
@@ -32,11 +32,11 @@ export default async (req: Request, res: Response) => {
     });
 
     const data = { success: true, data: clubs, message: clubs.length ? "Clubs retrieved successfully" : "Failed to retrieve any Club" };
-    return res.status(200).json(data);
+    res.status(200).json(data);
   } catch (err: any) {
     if (err.sendError && err.type === "validate") {
       const data = { success: false, message: err.description && err.description.message, data: null };
-      return res.status(400).json(data);
+      res.status(400).json(data);
     }
 
     return catchError({ res, err });
