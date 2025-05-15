@@ -5,8 +5,9 @@ import { ObjectId } from "mongoose";
 import { ACCOUNTS_PROFILE } from "../models/accounts.model";
 import { INFO_ALL_FAILED_REQUESTS } from "../models/info.model";
 import { CatchError } from "../interface/utils-helpers-interface";
-import { CalcFutureDate, MitigateProfileBruteForce, RequestHasBody } from "../interface/utils/helpers.interface";
+import { MitigateProfileBruteForce, RequestHasBody } from "../interface/utils/helpers.interface";
 import { styleText } from "util";
+import { differenceInHours, format } from "date-fns";
 
 export const catchError = async ({ res, req, err: initError }: CatchError) => {
   const { request = null, ...data } = res.req.body,
@@ -14,7 +15,7 @@ export const catchError = async ({ res, req, err: initError }: CatchError) => {
 
   if (message !== "invalid endpoint") {
     // handle api calls rejected by requests middleware
-    await INFO_ALL_FAILED_REQUESTS.create({ error: initError, data, request: request || "undefined", date: formatDate(new Date()) });
+    await INFO_ALL_FAILED_REQUESTS.create({ error: initError, data, request: request || "undefined", date: format(new Date(), "yyyy-MM-dd") });
   }
 
   if (<string>process.env.NODE_ENV === "development") {
@@ -79,34 +80,6 @@ export const requestHasBody = ({ body, required, sendError = false }: RequestHas
   // }
 
   // return { ...newBody };
-};
-
-export const calcFutureDate = ({ interval, context }: CalcFutureDate): Date => {
-  const currentTime = new Date();
-
-  switch (context) {
-    case "days":
-      const futureDate = new Date();
-      futureDate.setDate(currentTime.getDate() + interval);
-      return futureDate;
-    case "hours":
-      return new Date(currentTime.getTime() + interval * 60 * 60 * 1000);
-    default:
-      return new Date();
-  }
-};
-
-// difference in hours between date
-export const hourDiff = (date1: Date, date2?: Date) => {
-  let diff;
-
-  if (date1 && date2) {
-    diff = Math.round((new Date(date1).valueOf() - new Date(date2).valueOf()) / (1000 * 60 * 60));
-  } else {
-    diff = Math.round((new Date().valueOf() - new Date(date1).valueOf()) / (1000 * 60 * 60));
-  }
-
-  return diff;
 };
 
 // difference in hours between date
@@ -178,7 +151,7 @@ export const mitigateProfileBruteForce = async ({ profile, password: authPasswor
 
     if (!matchPassword) {
       const failedAttempts = counter + 1,
-        hoursElapsed = hourDiff(lastAttempt);
+        hoursElapsed = differenceInHours(new Date(), lastAttempt);
 
       // Notify user on Login Attempt
       if ([5, 6].includes(failedAttempts))
@@ -218,7 +191,7 @@ export const mitigateProfileBruteForce = async ({ profile, password: authPasswor
 
   // update acount lock/security settings
   if (locked) {
-    const accLocked = hourDiff(locked) <= 1; // ? <= check if account has been locked for 1 hours
+    const accLocked = differenceInHours(new Date(), locked) <= 1; // ? <= check if account has been locked for 1 hours
     if (accLocked) throw { message: "Account is temporarily locked, Please try again later", sendError: true };
 
     await ACCOUNTS_PROFILE.findByIdAndUpdate(id, {
@@ -293,15 +266,6 @@ export const textToId = (phrase: string) => {
   //   .join("-");
 
   return phrase.replace(/\s+/g, "-").toLowerCase();
-};
-
-export const formatDate = (date: string | Date) => {
-  const d = new Date(date),
-    year = d.getFullYear(),
-    day = d.getDate().toString().padStart(2, "0"),
-    month = (d.getMonth() + 1).toString().padStart(2, "0");
-
-  return `${year}-${month}-${day}`;
 };
 
 export function shuffleArray(tempArray: any[]) {

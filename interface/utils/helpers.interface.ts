@@ -8,8 +8,3 @@ export interface RequestHasBody {
   sendError?: boolean;
   body: { [key: string]: any };
 }
-
-export interface CalcFutureDate {
-  context: "days" | "hours";
-  interval: number;
-}

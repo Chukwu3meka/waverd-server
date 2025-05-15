@@ -1,11 +1,11 @@
 import nodemailer from "nodemailer";
 import * as templates from "../templates";
 import { PushMail } from "../interface/pushMail-handlers-interface";
+import { EMAIL_ENUM } from "./constants";
 
 export default async ({ account, template, address, subject, data = {} }: PushMail) => {
-  const emailAccount = account === "noreply" ? "NO_REPLY_EMAIL" : account === "accounts" ? "ACCOUNTS_EMAIL" : "CONTACT_US_EMAIL",
-    emailPassword = process.env.EMAIL_PASSWORD,
-    emailAddress = process.env[emailAccount];
+  const emailAddress = process.env[EMAIL_ENUM[account]],
+    emailPassword = account === "founder" ? process.env.FOUNDER_PASSWORD : process.env.EMAIL_PASSWORD;
 
   const mailTransporter = nodemailer.createTransport({ service: "zoho", auth: { user: emailAddress, pass: emailPassword } });
 

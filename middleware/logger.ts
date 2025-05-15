@@ -1,6 +1,6 @@
 import { styleText } from "util";
 import { format } from "date-fns";
-import { catchError, formatDate } from "../utils/helpers";
+import { catchError } from "../utils/helpers";
 import { Request, Response, NextFunction } from "express";
 import { INFO_ALL_REQUEST, INFO_ALL_DAILY_STAT } from "../models/info.model";
 

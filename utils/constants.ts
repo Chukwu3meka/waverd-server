@@ -1,5 +1,6 @@
 import { CookieOptions } from "express";
-import { calcFutureDate } from "./helpers";
+import { PushMail } from "../interface/pushMail-handlers-interface";
+import { add } from "date-fns";
 
 // const PORT = process.env.PORT || 5000;
 const PROD_ENV = process.env.NODE_ENV === "production";
@@ -12,7 +13,7 @@ export const CLIENT_COOKIES_OPTION: CookieOptions = {
   domain: PROD_ENV ? ".waverd.com" : `.localhost`,
   // domain: PROD_ENV ? ".waverd.com" : `localhost`,
   // domain: PROD_ENV ? ".waverd.com" : `localhost:${PORT}`,
-  expires: calcFutureDate({ context: "days", interval: 180 }),
+  expires: add(new Date(), { months: 6 }),
 };
 
 export const THEMES = ["dark", "light", "system"];
@@ -60,4 +61,11 @@ export const QUALIFICATION = {
     tour010: 2, // Scotland
     tour011: 3, // Turkey
   },
+};
+
+export const EMAIL_ENUM: { [key in PushMail["account"]]: string } = {
+  noreply: "NO_REPLY_EMAIL",
+  accounts: "ACCOUNTS_EMAIL",
+  founder: "FOUNDER_EMAIL",
+  contactus: "CONTACT_US_EMAIL",
 };

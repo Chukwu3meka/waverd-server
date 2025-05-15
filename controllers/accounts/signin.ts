@@ -1,11 +1,12 @@
 import jwt from "jsonwebtoken";
 import pushMail from "../../utils/pushMail";
 import validate from "../../utils/validate";
+import { add, differenceInHours } from "date-fns";
 
 import { ACCOUNTS_PROFILE } from "../../models/accounts.model";
 import { Request, Response, NextFunction } from "express";
 import { CLIENT_COOKIES_OPTION } from "../../utils/constants";
-import { catchError, hourDiff, calcFutureDate, requestHasBody, generateSession, mitigateProfileBruteForce } from "../../utils/helpers";
+import { catchError, requestHasBody, generateSession, mitigateProfileBruteForce } from "../../utils/helpers";
 
 export default async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -40,13 +41,13 @@ export default async (req: Request, res: Response, next: NextFunction) => {
     // Check if account email is verified
     if (!emailVerified) {
       const email_otp = otpPurpose === "email verification",
-        expired_otp = hourDiff(otpTime) >= 3;
+        expired_otp = differenceInHours(new Date(), otpTime) >= 3;
 
       if ((email_otp && expired_otp) || !email_otp) {
         const newOTP = {
           code: generateSession(id),
           purpose: "email verification",
-          time: calcFutureDate({ context: "hours", interval: 3 }),
+          time: add(new Date(), { hours: 3 }),
         };
 
         await ACCOUNTS_PROFILE.findByIdAndUpdate(id, { $set: { ["auth.otp"]: newOTP } });
