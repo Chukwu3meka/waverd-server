@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "prod": "node dist/index.js",
-    "start": "ts-node-dev --respawn --transpile-only index.ts"
+    "start": "node dist/index.js",
+    "dev": "ts-node-dev --respawn --transpile-only index.ts"
   },
   "repository": {
     "type": "git",
@@ -55,8 +55,7 @@
     "@types/passport-facebook": "^3.0.3",
     "@types/passport-google-oauth20": "^2.0.16",
     "@types/passport-twitter": "^1.0.40",
-    "i": "^0.3.7",
-    "pnpm": "^10.11.0",
-    "ts-node-dev": "^2.0.0"
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.8.3"
   }
 }
