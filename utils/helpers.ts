@@ -10,6 +10,8 @@ import { styleText } from "util";
 import { differenceInHours, format } from "date-fns";
 
 export const catchError = async ({ res, req, err: initError }: CatchError) => {
+  console.log(res.req.body, "sdsd");
+
   const { request = null, ...data } = res.req.body,
     { sendError = false, status = 400, message = null, respond = true, type = "json" } = initError || [];
 

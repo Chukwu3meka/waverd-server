@@ -20,7 +20,7 @@ passport.use(
       clientSecret: process.env.FACEBOOK_CLIENT_SECRET as string,
       callbackURL: `${process.env.BASE_URL}${process.env.STABLE_VERSION}/accounts/facebook/callback`,
     },
-    (accessToken, refreshToken, profile, cb) => returnEmail(profile, cb)
+    (accessToken: any, refreshToken: any, profile: any, cb: any) => returnEmail(profile, cb)
   )
 );
 
@@ -44,7 +44,7 @@ passport.use(
       callbackURL: `${process.env.BASE_URL}${process.env.STABLE_VERSION}/accounts/twitter/callback`,
       userProfileURL: "https://api.twitter.com/1.1/account/verify_credentials.json?include_email=true",
     },
-    (accessToken, refreshToken, profile, cb) => returnEmail(profile, cb)
+    (accessToken: any, refreshToken: any, profile: any, cb: any) => returnEmail(profile, cb)
   )
 );
 

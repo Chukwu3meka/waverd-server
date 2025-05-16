@@ -41,13 +41,16 @@ All packages installed are key to this app running smoothly and we graciously th
 
 1. _Fork_ **WaveRD Server** [here](https://github.com/Chukwu3meka/waverd-server) and clone your remote branch.
 2. If you don't have a gitignore file, you can create one and [run](https://sigalambigha.home.blog/2020/03/11/how-to-refresh-gitignore/) `git rm -r --cached .` to ensure git is tracking the right file, i.e files not listed in the new _.gitignore_
-3. You need to clone the waverd-gateway repo to proceed, gateway allows client and server to run on the same port during development.
+3. You need to clone the waverd-gateway [repo](https://github.com/Chukwu3meka/waverd-gateway) to proceed, gateway allows client and server to run on the same port during development.
 4. If you maintain the same folder name after cloning waverd-gateway, no extra step is required.
-   > else; Ensure to update the gateway path in `ecosystem.config.js` to match cloned path of waverd-gateway.
-5. .env file is required to proceed, a list of required variables can be found in the ENV_VARIABLES constant located here `./waverd-server/src/utils/constants.ts`
-6. In development we run a few command to reflect changes on file change, and to keep our app running all the time. To simplify the process we created a bash file to handle this
-   > Make sure to install pm2 `npm install pm2 -g`
-   > Run `bash dev.sh` to start our development server and compile TS to JS in the dist folder in realtime.
+   > ~~else; Ensure to update the gateway path in `ecosystem.config.js` to match cloned path of waverd-gateway.~~
+5. .env file is required to proceed, a list of required variables can be found in the app index.
+6. In development we run a few command to reflect changes on file change since we are using TypeScript, and to keep our app running all the time. ~~To simplify the process we created a bash file to handle this~~
+
+   > ~~Make sure to install pm2 `npm install pm2 -g`~~ > ~~Run `bash dev.sh` to start our development server and compile TS to JS in the dist folder in realtime.~~
+
+   > To simply this simply start the gateway manually and also run `npm start` to start our server
+
 7. Make sure to use `node` as environment, `yarn` as build command and `npm start` to start app in render
 8. To verify build status locally, run `npx tsc`.
 9. Happy hacking...😉
@@ -85,8 +88,8 @@ https://www.conventionalcommits.org/ or check out the
 
 ## Issues
 
-1. Stick to Passport 0.5 to avoid issues with oauth for now. [stackoverflow](https://stackoverflow.com/questions/72375564/typeerror-req-session-regenerate-is-not-a-function-using-passport)
-2. --- Ensure not to add NODE_ENV = "development" to server env, to allow installation of dev dependencies ---
-3. before email update, send notification consistently for 7 days before email change can take effect, also display it in app/user profile pae that email has been updated and will take effect in 7 days time
+1. ~~Stick to Passport 0.5 to avoid issues with oauth for now. [stackoverflow](https://stackoverflow.com/questions/72375564/typeerror-req-session-regenerate-is-not-a-function-using-passport)~~
+2. Ensure not to add NODE_ENV = "development" to server env, to allow installation of dev dependencies ---
+3. Before email update, send notification consistently for 7 days before email change can take effect, also display it in app/user profile pae that email has been updated and will take effect in 7 days time
 4. Make sure to set case sensitivity in folder/file rename on git/windows
-5. most website sanitize empty space in password
+5. Most website sanitize empty space in password

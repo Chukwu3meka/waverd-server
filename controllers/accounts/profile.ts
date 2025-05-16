@@ -1,12 +1,10 @@
-import nodemailer from "nodemailer";
 import validate from "../../utils/validate";
 
 import { ObjectId } from "mongodb";
 import { isValidObjectId } from "mongoose";
 import { Request, Response } from "express";
-import { ACCOUNTS_PROFILE } from "../../models/accounts.model";
 import { catchError } from "../../utils/helpers";
-import pushMail from "../../utils/pushMail";
+import { ACCOUNTS_PROFILE } from "../../models/accounts.model";
 
 export const getProfileHandler = async (tempId: string, session: string) => {
   if (!tempId) throw { message: "Session ID is Invalid" };
@@ -31,46 +29,12 @@ export const getProfileHandler = async (tempId: string, session: string) => {
 
 export default async (req: Request, res: Response) => {
   try {
-    //     const mailTransporter = nodemailer.createTransport({
-    //       service: "zoho",
-    //       auth: {
-    //         user: process.env.FOUNDER_EMAIL,
-    //         pass: process.env.FOUNDER_PASSWORD,
-    //       },
-    //     });
-
-    //     const mailDetails = {
-    //       from: process.env.FOUNDER_EMAIL,
-    //       to: "maduekwepedro@gmail.com",
-    //       subject: "Senior Frontend Developer",
-    //       html: `
-    //       Dear Hiring Manager,
-    //       <br/>
-    // I humbly apply
-    //       <br/>
-    //       <br/>
-    //       Kind regards,
-    //       <br/>
-    //       Chukwuemeka Maduekwe
-    //       +234(706)-4417213
-    //       `,
-    //       attachments: [
-    //         {
-    //           path: "./Chukwuemeka Maduekwe Resume.pdf",
-    //         },
-    //       ],
-    //     };
-
-    //     mailTransporter.sendMail(mailDetails, function (err, data) {
-    //       if (err) throw { message: "error sending mail" };
-    //     });
-
     const { id: tempId, session } = req.body.auth;
 
     const data = await getProfileHandler(tempId, session);
     if (!data) throw { message: "Profile not found", sendError: true };
 
-    res.status(200).json({ success: true, message: `Profile details retrieved successfully`, data });
+    res.status(200).json({ success: true, message: `Profile details retrieved successfully`, data: "" });
   } catch (err: any) {
     return catchError({ res, err });
   }
