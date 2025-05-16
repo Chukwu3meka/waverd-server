@@ -2,9 +2,9 @@
 
 **WaveRD**: is a free online football manager for advanced soccer management. The title of manager is almost exclusively used in British football. In most other European countries in which professional football is played, the person responsible for the direction of a team is awarded the position of coach or "trainer"<br/>
 This app was built to meet a true soccer management system where the developers and contributors also play the game.<br/>
-I've always had the goal to build a free online soccer app that can compete with **FIFA** and **eFootball**, but then what really pushed/motivated me to start the development of WaveRD, was a question asked on another football manager platform, and the user goes like this '**Does the developers of this game even play it or knows what it looks like?**'<br/>
+I've always had the goal to build a free online soccer app that can compete with **FIFA** and **eFootball**, but then what really pushed/motivated me to start the development of WaveRD, was a question asked on another football manager platform, and the user goes like this '**Do the developers of this game even play it or knows what it looks like?**'<br/>
 Initially, **WaveRD** was a closed source app, but my mentor who's a lover of Open Source Community influenced my decision to make it public; such that it will really benefit the software developers community, in a way that new developers and experienced developers can fork the project, tweak it and experiment new features with it.<br/>
-That being said **PERMISSION IN NOT GRANTED TO CLONE THIS APP FOR ANY COMMERCIAL GAIN IN ANY FORM NOR DEVIATE FROM IT'S ORIGINAL PURPOSE, NEITHER IS ANYONE ALLOWED TO USE PART/FULL CODEBASE ON ANOTHER PLATFORM WITHOUT EXPLICIT AUTHORIZATION FROM ME**
+That being said **PERMISSION IN NOT GRANTED TO CLONE THIS APP FOR ANY COMMERCIAL GAIN IN ANY FORM NOR DEVIATE FROM IT'S ORIGINAL PURPOSE, NEITHER IS ANYONE ALLOWED TO USE PART/FULL CODEBASE ON ANOTHER PLATFORM WITHOUT EXPLICIT AUTHORIZATION FROM WAVERD**
 
 ## About WaveRD Server⚡
 
@@ -49,7 +49,7 @@ All packages installed are key to this app running smoothly and we graciously th
 
    > ~~Make sure to install pm2 `npm install pm2 -g`~~ > ~~Run `bash dev.sh` to start our development server and compile TS to JS in the dist folder in realtime.~~
 
-   > To simply this simply start the gateway manually and also run `npm start` to start our server
+   > Simply start the gateway and also run `npm run dev` to start our dev server
 
 7. Make sure to use `node` as environment, `yarn` as build command and `npm start` to start app in render
 8. To verify build status locally, run `npx tsc`.

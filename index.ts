@@ -4,7 +4,7 @@ import { styleText } from "util";
 
 const authEnv = ["JWT_SECRET", "SECRET", "ACCOUNTS_EMAIL", "CONTACT_US_EMAIL", "EMAIL_PASSWORD", "NO_REPLY_EMAIL"];
 const uriEnv = ["ACCOUNTS_MONGODB_URI", "APIHUB_MONGODB_URI", "GAMES_MONGODB_URI", "INFO_MONGODB_URI", "FOUNDERS_EMAIL"];
-const coreEnv = ["PORT", "STABLE_VERSION", "BASE_URL", "CLIENT_URL", "NODE_ENV", "DATA_DELETION_PERIOD", "INACTIVITY_PERIOD", "NODE_VERSION", "NOTICE_PERIOD"];
+const coreEnv = ["STABLE_VERSION", "BASE_URL", "CLIENT_URL", "NODE_ENV", "DATA_DELETION_PERIOD", "INACTIVITY_PERIOD", "NODE_VERSION", "NOTICE_PERIOD"];
 const oAuthEnv = ["FACEBOOK_CLIENT_ID", "FACEBOOK_CLIENT_SECRET", "GOOGLE_CLIENT_ID", "GOOGLE_CLIENT_SECRET", "TWITTER_CONSUMER_KEY", "TWITTER_CONSUMER_SECRET"];
 
 const initServer = async () => {
@@ -40,7 +40,7 @@ const initServer = async () => {
 
     routeHandlers(app);
 
-    app.listen(process.env.PORT!, () => {
+    app.listen(process.env.PORT || 5000, () => {
       console.info(styleText("cyan", "Server is ready at"), styleText("green", process.env.BASE_URL!));
     });
   } catch (error: any) {

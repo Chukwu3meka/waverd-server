@@ -58,22 +58,22 @@ importers:
         version: 11.1.0
     devDependencies:
       '@playwright/test':
-        specifier: ^3.0.3
+        specifier: latest
         version: 1.52.0
       '@types/cookie-parser':
         specifier: ^1.4.8
         version: 1.4.8(@types/express@5.0.1)
       '@types/cookie-session':
-        specifier: ^10.11.0
+        specifier: ^2.0.49
         version: 2.0.49
       '@types/cors':
         specifier: latest
         version: 2.8.18
       '@types/express':
-        specifier: ^0.3.7
+        specifier: latest
         version: 5.0.1
       '@types/jsonwebtoken':
-        specifier: ^2.0.16
+        specifier: latest
         version: 9.0.9
       '@types/node':
         specifier: ^22.15.18
@@ -85,23 +85,20 @@ importers:
         specifier: ^1.0.17
         version: 1.0.17
       '@types/passport-facebook':
-        specifier: ^10.11.0
+        specifier: ^3.0.3
         version: 3.0.3
       '@types/passport-google-oauth20':
-        specifier: ^0.3.7
+        specifier: ^2.0.16
         version: 2.0.16
       '@types/passport-twitter':
         specifier: ^1.0.40
         version: 1.0.40
-      i:
-        specifier: ^0.3.7
-        version: 0.3.7
-      pnpm:
-        specifier: ^10.11.0
-        version: 10.11.0
       ts-node-dev:
         specifier: ^2.0.0
         version: 2.0.0(@types/node@22.15.18)(typescript@5.8.3)
+      typescript:
+        specifier: ^5.8.3
+        version: 5.8.3
 
 packages:
 
@@ -474,10 +471,6 @@ packages:
     resolution: {integrity: sha512-FtwrG/euBzaEjYeRqOgly7G0qviiXoJWnvEH2Z1plBdXgbyjv34pHTSb9zoeHMyDy33+DWy5Wt9Wo+TURtOYSQ==}
     engines: {node: '>= 0.8'}
 
-  i@0.3.7:
-    resolution: {integrity: sha512-FYz4wlXgkQwIPqhzC5TdNMLSE5+GS1IIDJZY/1ZiEPCT2S3COUVZeT5OW4BmW4r5LHLQuOosSwsvnroG9GR59Q==}
-    engines: {node: '>=0.4'}
-
   iconv-lite@0.6.3:
     resolution: {integrity: sha512-4fCk79wshMdzMp2rH06qWrJE4iolqLhCUH+OiuIgU++RB0+94NlDL81atO7GX55uUKueo0txHNtvEyI6D7WdMw==}
     engines: {node: '>=0.10.0'}
@@ -732,11 +725,6 @@ packages:
   playwright@1.52.0:
     resolution: {integrity: sha512-JAwMNMBlxJ2oD1kce4KPtMkDeKGHQstdpFPcPH3maElAXon/QZeTvtsfXmTMRyO9TslfoYOXkSsvao2nE1ilTw==}
     engines: {node: '>=18'}
-    hasBin: true
-
-  pnpm@10.11.0:
-    resolution: {integrity: sha512-ZUBYP0HMX2KOs9l3Ps7oAvT575kjzEW2mJD7R5kdSwkpZGlOw6T3OKQgyRijMwYsi5JdMS9C5PDCY+tgNVH5dw==}
-    engines: {node: '>=18.12'}
     hasBin: true
 
   proxy-addr@2.0.7:
@@ -1370,8 +1358,6 @@ snapshots:
       statuses: 2.0.1
       toidentifier: 1.0.1
 
-  i@0.3.7: {}
-
   iconv-lite@0.6.3:
     dependencies:
       safer-buffer: 2.1.2
@@ -1589,8 +1575,6 @@ snapshots:
       playwright-core: 1.52.0
     optionalDependencies:
       fsevents: 2.3.2
-
-  pnpm@10.11.0: {}
 
   proxy-addr@2.0.7:
     dependencies:
