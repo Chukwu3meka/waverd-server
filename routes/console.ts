@@ -2,13 +2,13 @@ import * as handler from "../controllers/console";
 import express, { Request, Response } from "express";
 
 import { codes } from "../utils/codes";
-import { formatDate } from "../utils/helpers";
 import { INFO_ALL_FAILED_REQUESTS } from "../models/info.model";
+import { format } from "date-fns";
 
 const fallbackRoute = async (req: Request, res: Response) => {
   await INFO_ALL_FAILED_REQUESTS.create({
     error: "Invalid Console route",
-    date: formatDate(new Date()),
+    date: format(new Date(), "yyyy-MM-dd"),
     data: codes["Invalid Console Route"],
     request: { body: JSON.stringify(req.body), headers: JSON.stringify(req.headers) },
   });

@@ -1,6 +1,5 @@
 import { Application } from "express";
 import { codes } from "../utils/codes";
-import { formatDate } from "../utils/helpers";
 import { INFO_ALL_FAILED_REQUESTS } from "../models/info.model";
 
 import cors from "cors";
@@ -15,11 +14,12 @@ import corsOptions from "../utils/corsOptions";
 import routeGuard from "../middleware/routeGuard";
 import publicGuard from "../middleware/publicGuard";
 import consoleGuard from "../middleware/consoleGuard";
+import { format } from "date-fns";
 
 const fallbackRoute = async (req: Request, res: Response) => {
   await INFO_ALL_FAILED_REQUESTS.create({
     error: "Invalid route",
-    date: formatDate(new Date()),
+    date: format(new Date(), "yyyy-MM-dd"),
     data: codes["Route not Found"],
     request: { body: JSON.stringify(req.body), headers: JSON.stringify(req.headers) },
   });

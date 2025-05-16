@@ -1,11 +1,14 @@
 import { styleText } from "util";
 import { format } from "date-fns";
-import { catchError, formatDate } from "../utils/helpers";
+import { catchError } from "../utils/helpers";
 import { Request, Response, NextFunction } from "express";
 import { INFO_ALL_REQUEST, INFO_ALL_DAILY_STAT } from "../models/info.model";
 
 export default async (req: Request, res: Response, next: NextFunction) => {
   try {
+    if (!req.body) req.body = {};
+    req.body.auth = { id: null, session: null };
+
     const { method, url: endpoint } = req,
       localTime = format(new Date(), "pp"),
       displayTime = localTime.split(" ")[0];
@@ -17,6 +20,8 @@ export default async (req: Request, res: Response, next: NextFunction) => {
         path = fullPath.join("/");
 
       if (version && domain && path) {
+        console.log("here");
+
         await INFO_ALL_REQUEST.create({ version, domain, path, date: new Date() });
 
         //  ? "Daily Records of Server Stat"
@@ -34,8 +39,6 @@ export default async (req: Request, res: Response, next: NextFunction) => {
           { upsert: true }
         );
 
-        if (!req.body) req.body = {};
-        req.body.auth = { id: null, session: null };
         req.body.request = { endpoint, version, domain, path };
 
         // ? Trim Request body

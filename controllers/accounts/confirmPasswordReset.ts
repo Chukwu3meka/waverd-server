@@ -3,7 +3,8 @@ import { Request, Response } from "express";
 import pushMail from "../../utils/pushMail";
 import validate from "../../utils/validate";
 import { ACCOUNTS_PROFILE } from "../../models/accounts.model";
-import { catchError, hourDiff, requestHasBody } from "../../utils/helpers";
+import { catchError, requestHasBody } from "../../utils/helpers";
+import { differenceInHours } from "date-fns";
 
 export default async (req: Request, res: Response) => {
   try {
@@ -19,7 +20,7 @@ export default async (req: Request, res: Response) => {
     if (!profile || !profile.auth || !profile.auth.otp) throw { message: "Invalid password reset link", sendError: true }; // <= verify that account exist, else throw an error
 
     if (profile.auth.otp.purpose === "password reset") {
-      const otpSentRecently = hourDiff(profile.auth.otp.time) > 3;
+      const otpSentRecently = differenceInHours(new Date(), profile.auth.otp.time) > 3;
       if (otpSentRecently) throw { message: "Password reset link has expired", sendError: true };
     }
 

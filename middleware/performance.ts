@@ -1,7 +1,7 @@
 import { formatDistanceToNow } from "date-fns";
 import { Request, Response, NextFunction } from "express";
 
-async function performanceMonitor(req: Request, res: Response, next: NextFunction) {
+export default async function performanceMonitor(req: Request, res: Response, next: NextFunction) {
   const start = Date.now();
 
   res.on("finish", () => {
@@ -11,5 +11,3 @@ async function performanceMonitor(req: Request, res: Response, next: NextFunctio
 
   return next();
 }
-
-export default performanceMonitor;

@@ -3,8 +3,8 @@ import validate from "../../utils/validate";
 import { ObjectId } from "mongodb";
 import { isValidObjectId } from "mongoose";
 import { Request, Response } from "express";
-import { ACCOUNTS_PROFILE } from "../../models/accounts.model";
 import { catchError } from "../../utils/helpers";
+import { ACCOUNTS_PROFILE } from "../../models/accounts.model";
 
 export const getProfileHandler = async (tempId: string, session: string) => {
   if (!tempId) throw { message: "Session ID is Invalid" };
@@ -34,7 +34,7 @@ export default async (req: Request, res: Response) => {
     const data = await getProfileHandler(tempId, session);
     if (!data) throw { message: "Profile not found", sendError: true };
 
-    res.status(200).json({ success: true, message: `Profile details retrieved successfully`, data });
+    res.status(200).json({ success: true, message: `Profile details retrieved successfully`, data: "" });
   } catch (err: any) {
     return catchError({ res, err });
   }

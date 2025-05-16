@@ -1,20 +1,11 @@
+import dns from "dns";
 import mongoose from "mongoose";
 
 mongoose.Promise = global.Promise;
+dns.setServers(["8.8.8.8", "8.8.4.4"]);
+mongoose.set({ strictQuery: true, debug: false });
 
-mongoose.set({
-  // useNewUrlParser: true,
-  // useUnifiedTopology: true,
-  strictQuery: true,
-  debug: false, // ? <= hide console messages
-
-  // keepAlive: true,
-  // useNewUrlParser: true,
-  // useUnifiedTopology: true,
-  // useFindAndModify: false,
-});
-
-interface IConnectionEvents {
+interface ConnectionEvents {
   all: string;
   open: string;
   close: string;
@@ -27,7 +18,7 @@ interface IConnectionEvents {
   disconnecting: string;
 }
 
-const connectionEvents: IConnectionEvents = {
+const connectionEvents: ConnectionEvents = {
   connecting: "Emitted when Mongoose starts making its initial connection to the MongoDB server",
   connected:
     "Emitted when Mongoose successfully makes its initial connection to the MongoDB server, or when Mongoose reconnects after losing connectivity. May be emitted multiple times if Mongoose loses connectivity.",
@@ -36,19 +27,23 @@ const connectionEvents: IConnectionEvents = {
   disconnected:
     "Emitted when Mongoose lost connection to the MongoDB server. This event may be due to your code explicitly closing the connection, the database server crashing, or network connectivity issues.",
   close: "Emitted after Connection#close() successfully closes the connection. If you call conn.close(), you'll get both a 'disconnected' event and a 'close' event.",
-  reconnected: "Emitted if Mongoose lost connectivity to MongoDB and successfully reconnected. Mongoose attempts to automatically reconnect when it loses connection to the database.",
+  reconnected:
+    "Emitted if Mongoose lost connectivity to MongoDB and successfully reconnected. Mongoose attempts to automatically reconnect when it loses connection to the database.",
   error: "Emitted if an error occurs on a connection, like a parseError due to malformed data or a data larger than 16MB.",
   fullsetup: "Emitted when you're connecting to a replica set and Mongoose has successfully connected to the primary and at least one secondary.",
   all: "Emitted when you're connecting to a replica set and Mongoose has successfully connected to all servers specified in your connection string.",
 };
 
 type LogMessage = { label: string; event: string };
-const logMessage = ({ label, event }: LogMessage) => `MongoDB ${label} Database Connection Events} ::: ${connectionEvents[event as keyof IConnectionEvents]}`;
+const logMessage = ({ label, event }: LogMessage) => `MongoDB ${label} Database Connection Events} ::: ${connectionEvents[event as keyof ConnectionEvents]}`;
 
 type ModelGenerator = { label: string; db: string };
 const modelGenerator = ({ label, db }: ModelGenerator) => {
   return mongoose
-    .createConnection(<string>process.env[`${label}_MONGODB_URI`], { dbName: db })
+    .createConnection(<string>process.env[`${label}_MONGODB_URI`], {
+      dbName: db,
+    })
+
     .on("all", () => logMessage({ label, event: "all" }))
     .on("open", () => logMessage({ label, event: "open" }))
     .on("error", () => logMessage({ label, event: "error" }))
@@ -65,6 +60,6 @@ const infoDatabase = modelGenerator({ label: "INFO", db: "info" }); // ? <= Clie
 const gamesDatabase = modelGenerator({ label: "GAMES", db: "games" }); // ? <= Games Database
 const apihubDatabase = modelGenerator({ label: "APIHUB", db: "apihub" }); // ? <= API Hub Database
 const accountsDatabase = modelGenerator({ label: "ACCOUNTS", db: "accounts" }); // ? <= Auth/Accounts  Database
-const federatedDatabase = modelGenerator({ label: "FEDERATED", db: "WaveRD" }); // ? <= Federation Instance Database
+// const federatedDatabase = modelGenerator({ label: "FEDERATED", db: "WaveRD" }); // ? <= Federation Instance Database
 
-export { accountsDatabase, infoDatabase, apihubDatabase, gamesDatabase, federatedDatabase };
+export { accountsDatabase, infoDatabase, apihubDatabase, gamesDatabase };
