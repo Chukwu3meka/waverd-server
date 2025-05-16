@@ -1,8 +1,8 @@
+import { catchError } from "../utils/helpers";
 import { Response, Request, NextFunction } from "express";
 
-import { catchError } from "../utils/helpers";
-
-export default async (req: Request, res: Response, next: NextFunction) => {
+// export default async (req: Request, res: Response, next: NextFunction) => {
+export default async (req: any, res: Response, next: NextFunction) => {
   try {
     // Solve client visible TypeError: req.session.regenerate is not a function using Passport
     // register regenerate & save after the cookieSession middleware initialization

@@ -1,11 +1,13 @@
 import jwt from "jsonwebtoken";
+import { add, differenceInHours } from "date-fns";
+
 import { NextFunction, Request, Response } from "express";
 
 import pushMail from "../../utils/pushMail";
 import validator from "../../utils/validate";
 import { ACCOUNTS_PROFILE } from "../../models/accounts.model";
 import { CLIENT_COOKIES_OPTION } from "../../utils/constants";
-import { capitalize, catchError, hourDiff, generateSession, calcFutureDate, obfuscate, mitigateProfileBruteForce } from "../../utils/helpers";
+import { capitalize, catchError, generateSession, obfuscate, mitigateProfileBruteForce } from "../../utils/helpers";
 
 import { PushMail } from "../../interface/pushMail-handlers-interface";
 
@@ -37,13 +39,13 @@ const oAuthFunc = async (req: Request, res: Response) => {
 
     // Check if account email is verified
     if (!emailVerified) {
-      const hoursElapsed = hourDiff(otpTime);
+      const hoursElapsed = differenceInHours(new Date(), otpTime);
 
       if (otpPurpose !== "email verification" || hoursElapsed >= 1) {
         const newOTP = {
           code: generateSession(id),
           purpose: "email verification",
-          time: calcFutureDate({ context: "hours", interval: 3 }),
+          time: add(new Date(), { hours: 3 }),
         };
 
         await ACCOUNTS_PROFILE.findByIdAndUpdate(id, { $set: { ["auth.otp"]: newOTP } });

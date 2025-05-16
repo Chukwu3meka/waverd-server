@@ -5,13 +5,14 @@ import { codes } from "../utils/codes";
 import { ACCOUNTS_PROFILE } from "../models/accounts.model";
 import { INFO_ALL_FAILED_REQUESTS } from "../models/info.model";
 import { Request, Response, NextFunction } from "express";
-import { catchError, formatDate, getIdFromSession } from "../utils/helpers";
+import { catchError, getIdFromSession } from "../utils/helpers";
+import { format } from "date-fns";
 
 export default async (req: Request, res: Response, next: NextFunction) => {
   const guardResponse = async (message: string) => {
     await INFO_ALL_FAILED_REQUESTS.create({
       data: message,
-      date: formatDate(new Date()),
+      date: format(new Date(), "yyyy-MM-dd"),
       error: codes["Console Guard error"],
       request: { body: JSON.stringify(req.body), headers: JSON.stringify(req.headers) },
     });
