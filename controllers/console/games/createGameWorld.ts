@@ -79,7 +79,6 @@ export default async (req: Request, res: Response) => {
       .generateFixtures()
       .then(async () => await streamResponse("success", `Generating ${title} Game World Fixtures for Cups, Divisions, Shields, World Tiers`))
       .catch(async (err) => {
-        console.log(err);
         if (err.sendError) await streamResponse("failed", err.message);
         throw { sendError: true, message: `Generating ${title} Game World Fixtures for Cups, Divisions, Shields, World Tiers` };
       });

@@ -49,7 +49,7 @@ All packages installed are key to this app running smoothly and we graciously th
 
    > ~~Make sure to install pm2 `npm install pm2 -g`~~ > ~~Run `bash dev.sh` to start our development server and compile TS to JS in the dist folder in realtime.~~
 
-   > Simply start the gateway and also run `npm run dev` to start our dev server
+   > Simply start the gateway and also run `npm run dev` to start our dev server or you can alternatively run `bash dev.sh` to start both gateway and server simultaneously
 
 7. Make sure to use `node` as environment, `yarn` as build command and `npm start` to start app in render
 8. To verify build status locally, run `npx tsc`.
@@ -93,3 +93,4 @@ https://www.conventionalcommits.org/ or check out the
 3. Before email update, send notification consistently for 7 days before email change can take effect, also display it in app/user profile pae that email has been updated and will take effect in 7 days time
 4. Make sure to set case sensitivity in folder/file rename on git/windows
 5. Most website sanitize empty space in password
+6. MongoDB connection string fails to connect outside Google DNS, so we had to set that before app initializes

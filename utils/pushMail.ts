@@ -5,9 +5,8 @@ import { EMAIL_ENUM } from "./constants";
 
 export default async ({ account, template, address, subject, data = {} }: PushMail) => {
   const emailAddress = process.env[EMAIL_ENUM[account]],
-    emailPassword = account === "founder" ? process.env.FOUNDER_PASSWORD : process.env.EMAIL_PASSWORD;
-
-  const mailTransporter = nodemailer.createTransport({ service: "zoho", auth: { user: emailAddress, pass: emailPassword } });
+    emailPassword = account === "founder" ? process.env.FOUNDER_PASSWORD : process.env.EMAIL_PASSWORD,
+ mailTransporter = nodemailer.createTransport({ service: "zoho", auth: { user: emailAddress, pass: emailPassword } });
 
   const html = `<!DOCTYPE html>
   <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">

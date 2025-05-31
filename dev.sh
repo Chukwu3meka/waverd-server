@@ -1,0 +1,2 @@
+cd ../waverd-gateway && npm start >/dev/null 2>&1 & cd ../waverd-server && npm run dev
+# redirect standard output from gateway to (>/dev/null) and standard error (2>&1) to /dev/null, in order to suppres any logs.

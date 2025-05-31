@@ -6,6 +6,7 @@
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",
+    "gateway": "cd ../waverd-gateway && npm start",
     "dev": "ts-node-dev --respawn --transpile-only index.ts"
   },
   "repository": {

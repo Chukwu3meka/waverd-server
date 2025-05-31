@@ -1,5 +1,6 @@
-import { Request, Response } from "express";
 import validate from "../../utils/validate";
+
+import { Request, Response } from "express";
 import { ACCOUNTS_PROFILE } from "../../models/accounts.model";
 import { catchError, getIdFromSession, requestHasBody } from "../../utils/helpers";
 

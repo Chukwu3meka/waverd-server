@@ -1,8 +1,8 @@
-import dns from "dns";
+// import dns from "dns";
 import mongoose from "mongoose";
 
 mongoose.Promise = global.Promise;
-dns.setServers(["8.8.8.8", "8.8.4.4"]);
+// dns.setServers(["8.8.8.8", "8.8.4.4"]);
 mongoose.set({ strictQuery: true, debug: false });
 
 interface ConnectionEvents {

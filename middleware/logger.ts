@@ -20,8 +20,6 @@ export default async (req: Request, res: Response, next: NextFunction) => {
         path = fullPath.join("/");
 
       if (version && domain && path) {
-        console.log("here");
-
         await INFO_ALL_REQUEST.create({ version, domain, path, date: new Date() });
 
         //  ? "Daily Records of Server Stat"

@@ -1,18 +1,22 @@
 import "dotenv/config";
-import express from "express";
 import { styleText } from "util";
 
 const authEnv = ["JWT_SECRET", "SECRET", "ACCOUNTS_EMAIL", "CONTACT_US_EMAIL", "EMAIL_PASSWORD", "NO_REPLY_EMAIL"];
-const uriEnv = ["ACCOUNTS_MONGODB_URI", "APIHUB_MONGODB_URI", "GAMES_MONGODB_URI", "INFO_MONGODB_URI", "FOUNDERS_EMAIL"];
-const coreEnv = ["STABLE_VERSION", "BASE_URL", "CLIENT_URL", "NODE_ENV", "DATA_DELETION_PERIOD", "INACTIVITY_PERIOD", "NODE_VERSION", "NOTICE_PERIOD"];
+const coreEnv = ["STABLE_VERSION", "NODE_ENV", "DATA_DELETION_PERIOD", "INACTIVITY_PERIOD", "NODE_VERSION", "NOTICE_PERIOD"];
+const uriEnv = ["ACCOUNTS_MONGODB_URI", "APIHUB_MONGODB_URI", "GAMES_MONGODB_URI", "INFO_MONGODB_URI", "FOUNDERS_EMAIL", "BASE_URL", "CLIENT_URL"];
 const oAuthEnv = ["FACEBOOK_CLIENT_ID", "FACEBOOK_CLIENT_SECRET", "GOOGLE_CLIENT_ID", "GOOGLE_CLIENT_SECRET", "TWITTER_CONSUMER_KEY", "TWITTER_CONSUMER_SECRET"];
 
 const initServer = async () => {
+  const dns = await import("dns"),
+    express = (await import("express")).default,
+    custMsg = "Server cannot find Env. Variable for ";
+
+  dns.setServers(["8.8.8.8", "8.8.4.4"]);
   console.info(styleText("yellow", "Initializing WaveRD Server..."));
-  const envMsg = "Server cannot find Env. Variable for ";
+
   try {
     for (const label of [...uriEnv, ...authEnv, ...coreEnv, ...oAuthEnv]) {
-      if (!process.env[label]) throw { message: envMsg + label }; // ? Verify that all env variables exists
+      if (!process.env[label]) throw { message: custMsg + label }; // ? Verify that all env variables exists
     }
 
     const app = express(),
@@ -22,12 +26,12 @@ const initServer = async () => {
       cookieParser = await import("cookie-parser").then((res) => res.default),
       cookieSession = await import("cookie-session").then((res) => res.default),
       passport = await import("./middleware/passport").then((res) => res.default),
-      performanceMonitor = await import("./middleware/performance").then((res) => res.default),
+      performance = await import("./middleware/performance").then((res) => res.default),
       twitterPassport = await import("./middleware/twitterPassport").then((res) => res.default);
 
     app.use([
+      performance,
       header, // Add no index for search engines
-      performanceMonitor,
       express.json({ limit: "1mb" }), // for parsing application/json
       express.urlencoded({ extended: true }), // for parsing application/x-www-form-urlencoded
       cookieParser(process.env.SECRET!),
@@ -46,7 +50,7 @@ const initServer = async () => {
   } catch (error: any) {
     if (process.env.NODE_ENV !== "production") console.info(styleText("red", error?.message as string));
 
-    if (typeof error?.message === "string" && !error?.message.includes(envMsg)) {
+    if (typeof error?.message === "string" && !error?.message.includes(custMsg)) {
       import("./models/info.model").then(async (mod) => {
         await mod.INFO_ALL_FAILED_REQUESTS.create({
           error: error || null,
